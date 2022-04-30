@@ -1,5 +1,3 @@
-import {renderTree} from "../render";
-
 export type DialogsItemPropsType = {
     name: string
     id: number
@@ -33,6 +31,13 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: friendsInSidebarType
+}
+/*export type ObserveType = {
+    observer: (state:RootStateType) => void
+}*/
+
+let rerenderEntireTree = () => {
+
 }
 
 let state = {
@@ -76,13 +81,16 @@ export const addPost = () => {
     }
     state.profilePage.newPostText = ''
     state.profilePage.post.push(newPost)
-    renderTree(state)
+    rerenderEntireTree()
 }
-
 export const updateNewPostText = (newText: string) => {
 
     state.profilePage.newPostText = newText
-    renderTree(state)
+    rerenderEntireTree()
+}
+
+export const subscribe = (observer:()=> void) => {
+    rerenderEntireTree = observer
 }
 
 export default state;
