@@ -27,10 +27,14 @@ export type SidebarType = {
 export type friendsInSidebarType = {
     friendsInSidebar: Array<SidebarType>
 }
-export type actionType = {
-    type: 'ADD-POST'|'UPDATE-NEW-POST-TEXT'
+export type AddPostActionType = {
+    type: 'ADD-POST'
+ }
+export type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
     newText: string
 }
+export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
@@ -41,8 +45,9 @@ export type StoreType = {
     addPost: ()=> void
     updateNewPostText: ()=> void
     subscribe: ()=> void
-    dispatch: (action:actionType) => void
+    dispatch: (action:ActionTypes) => void
 }
+
 /*export type ObserveType = {
     observer: (state:RootStateType) => void
 }*/
@@ -99,7 +104,7 @@ let store = {
         this._state.profilePage.newPostText = newText
         rerenderEntireTree()
     },
-    dispatch (action:actionType) {
+    dispatch (action:ActionTypes) {
         if (action.type === 'ADD-POST') {
             const newPost : postDataType = {
                 id: new Date().getTime(),
@@ -114,6 +119,14 @@ let store = {
             rerenderEntireTree()
         }
     }
+}
+
+export const addPostActionCreator = (): AddPostActionType => {
+    return {type:'ADD-POST'}
+}
+
+export const upDateNewPostTextActionCreator = (text:string): UpdateNewPostTextActionType => {
+    return {type: 'UPDATE-NEW-POST-TEXT', newText:text}
 }
 
 let rerenderEntireTree = () => {

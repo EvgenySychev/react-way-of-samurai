@@ -7,7 +7,7 @@ import News from './components/News/News';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import {actionType, RootStateType} from "./redux/state";
+import {ActionTypes, RootStateType} from "./redux/state";
 
 
 type StatePropsType = {
@@ -15,7 +15,7 @@ type StatePropsType = {
     //addPost: () => void
     newPostText:string
     //updateNewPostText: (newText: string) => void
-    dispatch: (action:actionType)=> void
+    dispatch: (action:ActionTypes)=> void
 }
 
 const App = (props:StatePropsType) => {
