@@ -16,8 +16,9 @@ export type ProfilePageType = {
     newPostText: string
 }
 export type DialogsPageType = {
-    dialogs:Array<DialogsItemPropsType>
-    messages:Array<MessagesDataType>
+    dialogs: Array<DialogsItemPropsType>
+    messages: Array<MessagesDataType>
+    newMessageBody: string
 }
 export type SidebarType = {
     id: number
@@ -27,14 +28,13 @@ export type SidebarType = {
 export type friendsInSidebarType = {
     friendsInSidebar: Array<SidebarType>
 }
-export type AddPostActionType = {
-    type: 'ADD-POST'
- }
-export type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
-export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType
+export type AddPostActionType = ReturnType<typeof addPostActionCreator>
+export type UpdateNewPostTextActionType = ReturnType<typeof upDateNewPostTextActionCreator>
+export type UpdateNewMessageBodyActionType = ReturnType<typeof upDateNewMessageBodyCreator>
+
+export type SendMassageActionType = ReturnType<typeof sendMessageCreator>
+
+export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMassageActionType
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
@@ -42,10 +42,10 @@ export type RootStateType = {
 }
 export type StoreType = {
     _state: RootStateType
-    addPost: ()=> void
-    updateNewPostText: ()=> void
-    subscribe: ()=> void
-    dispatch: (action:ActionTypes) => void
+    addPost: () => void
+    updateNewPostText: () => void
+    subscribe: () => void
+    dispatch: (action: ActionTypes) => void
 }
 
 /*export type ObserveType = {
@@ -76,21 +76,35 @@ let store = {
                 {id: 3, message: 'Yo'},
                 {id: 4, message: 'Yo'},
                 {id: 5, message: 'Yo'}
-            ]
+            ],
+            newMessageBody: ""
         },
         sidebar: {
             friendsInSidebar: [
-                {id: 1, name: 'Anton', img: 'https://i.pinimg.com/originals/db/cd/82/dbcd82c005eb2be4ceacd2da92c47923.jpg'},
-                {id: 2, name: 'Nikolay', img: 'http://behandsome.ru/wp-content/uploads/2021/01/Luke_Skywalker_Be_Handsome-1024x683.jpg'},
-                {id: 3, name: 'Dasha', img: 'https://i.pinimg.com/originals/34/77/1f/34771ff82844cea6511e662ab1c6e198.jpg'}
-            ]}
+                {
+                    id: 1,
+                    name: 'Anton',
+                    img: 'https://i.pinimg.com/originals/db/cd/82/dbcd82c005eb2be4ceacd2da92c47923.jpg'
+                },
+                {
+                    id: 2,
+                    name: 'Nikolay',
+                    img: 'http://behandsome.ru/wp-content/uploads/2021/01/Luke_Skywalker_Be_Handsome-1024x683.jpg'
+                },
+                {
+                    id: 3,
+                    name: 'Dasha',
+                    img: 'https://i.pinimg.com/originals/34/77/1f/34771ff82844cea6511e662ab1c6e198.jpg'
+                }
+            ]
+        }
     },
-    subscribe (observer:()=> void) {
+    subscribe(observer: () => void) {
         rerenderEntireTree = observer
     },
 
-    addPost () {
-        const newPost : postDataType = {
+    addPost() {
+        const newPost: postDataType = {
             id: new Date().getTime(),
             message: this._state.profilePage.newPostText,
             likesCount: 0
@@ -99,14 +113,14 @@ let store = {
         this._state.profilePage.post.push(newPost)
         rerenderEntireTree()
     },
-    updateNewPostText (newText: string) {
+    updateNewPostText(newText: string) {
 
         this._state.profilePage.newPostText = newText
         rerenderEntireTree()
     },
-    dispatch (action:ActionTypes) {
+    dispatch(action: ActionTypes) {
         if (action.type === 'ADD-POST') {
-            const newPost : postDataType = {
+            const newPost: postDataType = {
                 id: new Date().getTime(),
                 message: this._state.profilePage.newPostText,
                 likesCount: 0
@@ -117,16 +131,31 @@ let store = {
         } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
             this._state.profilePage.newPostText = action.newText
             rerenderEntireTree()
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
+            this._state.dialogsPage.newMessageBody = action.body
+            rerenderEntireTree()
+        } else if (action.type === 'SEND_MASSAGE') {
+            let body = this._state.dialogsPage.newMessageBody
+            this._state.dialogsPage.newMessageBody = ''
+            this._state.dialogsPage.messages = [...this._state.dialogsPage.messages,{id: 6, message: body}]
+            rerenderEntireTree()
         }
     }
 }
 
-export const addPostActionCreator = (): AddPostActionType => {
-    return {type:'ADD-POST'}
+export const addPostActionCreator = () => {
+    return {type: 'ADD-POST'} as const
 }
 
-export const upDateNewPostTextActionCreator = (text:string): UpdateNewPostTextActionType => {
-    return {type: 'UPDATE-NEW-POST-TEXT', newText:text}
+export const upDateNewPostTextActionCreator = (text: string) => {
+    return {type: 'UPDATE-NEW-POST-TEXT', newText: text} as const
+}
+export const sendMessageCreator = () => {
+    return {type: 'SEND_MASSAGE'} as const
+}
+
+export const upDateNewMessageBodyCreator = (body: string) => {
+    return {type: 'UPDATE-NEW-MESSAGE-BODY', body:body} as const
 }
 
 let rerenderEntireTree = () => {
