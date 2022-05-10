@@ -1,0 +1,28 @@
+import {ActionTypes, postDataType, ProfilePageType} from "./state";
+
+const profileReducer = (state: ProfilePageType, action: ActionTypes) => {
+
+    if (action.type === 'ADD-POST') {
+        const newPost: postDataType = {
+            id: new Date().getTime(),
+            message: state.newPostText,
+            likesCount: 0
+        }
+        state.newPostText = ''
+        state.post.push(newPost)
+    } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        state.newPostText = action.newText
+    }
+
+    return state
+}
+
+export const addPostActionCreator = () => {
+    return {type: 'ADD-POST'} as const
+}
+
+export const upDateNewPostTextActionCreator = (text: string) => {
+    return {type: 'UPDATE-NEW-POST-TEXT', newText: text} as const
+}
+
+export default profileReducer;
