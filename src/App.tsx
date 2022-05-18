@@ -7,7 +7,7 @@ import News from './components/News/News';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import {ActionTypes, RootStateType} from "./redux/state";
+import {ActionTypes, RootStateType} from "./redux/store";
 
 
 type StatePropsType = {

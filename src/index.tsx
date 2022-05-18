@@ -3,7 +3,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import ReactDOM from "react-dom";
 import App from "./App";
-import store from "./redux/state";
+import store from "./redux/redux-store";
 
 const rerenderEntireTree = () => {
 
@@ -18,7 +18,7 @@ const rerenderEntireTree = () => {
 
 rerenderEntireTree()
 
-store.subscribe(rerenderEntireTree)
+store.subscribe(( )=>rerenderEntireTree())// здесь необходимо изменить, чтобы отрисовалось дерево.
 
 
 reportWebVitals();

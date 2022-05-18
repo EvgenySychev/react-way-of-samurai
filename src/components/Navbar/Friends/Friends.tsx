@@ -1,4 +1,4 @@
-import {friendsInSidebarType} from "../../../redux/state";
+import {friendsInSidebarType} from "../../../redux/store";
 import s from './Friends.module.css';
 
 type FriendPropsType = {

@@ -46,9 +46,9 @@ export type RootStateType = {
 }
 export type StoreType = {
     _state: RootStateType
-    addPost: () => void
-    updateNewPostText: () => void
-    subscribe: () => void
+    //addPost: () => void
+    //updateNewPostText: () => void
+    subscribe: (observer: () => void) => void
     dispatch: (action: ActionTypes) => void
 }
 
@@ -56,7 +56,7 @@ export type StoreType = {
     observer: (state:RootStateType) => void
 }*/
 
-let store = {
+let store:StoreType = {
     _state: {
         profilePage: {
             post: [
