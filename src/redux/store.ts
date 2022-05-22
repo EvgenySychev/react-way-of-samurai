@@ -1,12 +1,13 @@
 import profileReducer, {addPostActionCreator, upDateNewPostTextActionCreator} from "./profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import dialogsReducer, {sendMessageCreator, upDateNewMessageBodyCreator} from "./dialogs-reducer";
+import {followAC, setUsersAC, unfollowAC} from "./users-reducer";
 
-export type DialogsItemPropsType = {
+type DialogsItemPropsType = {
     name: string
     id: number
 }
-export type MessagesDataType = {
+type MessagesDataType = {
     message: string
     id: number
 }
@@ -35,21 +36,25 @@ export type friendsInSidebarType = {
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
 export type UpdateNewPostTextActionType = ReturnType<typeof upDateNewPostTextActionCreator>
 export type UpdateNewMessageBodyActionType = ReturnType<typeof upDateNewMessageBodyCreator>
+export type FollowACType = ReturnType<typeof followAC>
+export type UnfollowACType = ReturnType<typeof unfollowAC>
+export type SetUsersACType = ReturnType<typeof setUsersAC>
 
 export type SendMassageActionType = ReturnType<typeof sendMessageCreator>
 
-export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMassageActionType
+export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMassageActionType | FollowACType | UnfollowACType | SetUsersACType
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: friendsInSidebarType
 }
 export type StoreType = {
-    _state: RootStateType
+    state: RootStateType
     //addPost: () => void
     //updateNewPostText: () => void
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionTypes) => void
+    getState: () => RootStateType
 }
 
 /*export type ObserveType = {
@@ -57,7 +62,7 @@ export type StoreType = {
 }*/
 
 let store:StoreType = {
-    _state: {
+    state: {
         profilePage: {
             post: [
                 {id: 1, message: 'Hi? How are you?', likesCount: 12},
@@ -103,14 +108,17 @@ let store:StoreType = {
             ]
         }
     },
+    getState() {
+        return this.state
+    },
     subscribe(observer: () => void) {
         rerenderEntireTree = observer
     },
     dispatch(action: ActionTypes) {
 
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+        this.state.profilePage = profileReducer(this.state.profilePage, action)
+        this.state.dialogsPage = dialogsReducer(this.state.dialogsPage, action)
+        this.state.sidebar = sidebarReducer(this.state.sidebar, action)
         rerenderEntireTree()
 
     }
