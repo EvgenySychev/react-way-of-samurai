@@ -39,9 +39,7 @@ export type UpdateNewMessageBodyActionType = ReturnType<typeof upDateNewMessageB
 export type FollowACType = ReturnType<typeof followAC>
 export type UnfollowACType = ReturnType<typeof unfollowAC>
 export type SetUsersACType = ReturnType<typeof setUsersAC>
-
 export type SendMassageActionType = ReturnType<typeof sendMessageCreator>
-
 export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMassageActionType | FollowACType | UnfollowACType | SetUsersACType
 export type RootStateType = {
     profilePage: ProfilePageType
