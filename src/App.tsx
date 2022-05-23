@@ -6,16 +6,16 @@ import News from './components/News/News';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
+import {UsersContainer} from "./components/Users/UsersContainer";
 import {ActionTypes, RootStateType} from "./redux/store";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import UsersContainer from "./components/Users/UsersContainer";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {NavbarContainer} from "./components/Navbar/NavbarContainer";
+
 
 
 type StatePropsType = {
-    /*state: RootStateType
-    //addPost: () => void
+   /* state: RootStateType
     newPostText: string
-    //updateNewPostText: (newText: string) => void
     dispatch: (action: ActionTypes) => void*/
 }
 
@@ -24,7 +24,7 @@ const App = (props: StatePropsType) => {
         <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
-                <Navbar stateN={props.state.sidebar}/>
+                <NavbarContainer/>
 
                 <div className='app-wrapper-content'>
                     <Routes>

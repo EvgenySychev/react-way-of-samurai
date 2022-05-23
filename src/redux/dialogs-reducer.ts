@@ -1,4 +1,4 @@
-import {ActionTypes, DialogsPageType} from "./store";
+import {ActionTypes} from "./store";
 
 export type DialogsItemPropsType = {
     name: string

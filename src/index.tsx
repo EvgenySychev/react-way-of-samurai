@@ -3,13 +3,14 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import ReactDOM from "react-dom";
 import App from "./App";
-import store from "./redux/redux-store";
+import store from "./redux/store";
+
 
 const rerenderEntireTree = () => {
 
     ReactDOM.render(
         <React.StrictMode>
-            <App state={store._state} dispatch={store.dispatch.bind(store)} newPostText={store._state.profilePage.newPostText}/>
+            <App />
         </React.StrictMode>,
         document.getElementById('root')
     );
