@@ -1,9 +1,12 @@
 import {UsersPropsType} from "./UsersContainer";
+import axios from "axios";
+import userPhoto from '../../assets/images/user.png'
 
 
 export const Users = (props:UsersPropsType) => {
     if (props.usersPage.users.length === 0) {
-        props.setUsers( [
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => { props.setUsers(response.data.items)})
+        /*props.setUsers( [
             {
                 id:1,
                 photoURL: 'https://steamuserimages-a.akamaihd.net/ugc/1476569307443094470/E789887E031C11F6932BC48D7A46036846703AC8/?imw=512&amp;&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=false',
@@ -27,7 +30,7 @@ export const Users = (props:UsersPropsType) => {
                 status: 'I am a boss',
                 location: {city: 'Kien', country: 'Ukraine'}
             }
-        ])
+        ])*/
     }
 
     return (
@@ -36,7 +39,7 @@ export const Users = (props:UsersPropsType) => {
                 props.usersPage.users.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            <img src={u.photoURL}/>
+                            <img />
                         </div>
                         <div>
                             {u.followed
@@ -46,12 +49,12 @@ export const Users = (props:UsersPropsType) => {
                     </span>
                     <span>
                         <span>
-                            <div>{u.fullName}</div>
+                            <div>{u.name}</div>
                             <div>{u.status}</div>
                         </span>
                         <span>
-                            <div>{u.location.country}</div>
-                            <div>{u.location.city}</div>
+                            <div>{"u.location.country"}</div>
+                            <div>{"u.location.city"}</div>
                         </span>
                     </span>
                 </div>)
