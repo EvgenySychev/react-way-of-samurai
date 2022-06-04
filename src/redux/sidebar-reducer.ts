@@ -22,7 +22,7 @@ let initialState:friendsInSidebarType = {
 
 const sidebarReducer = (state: friendsInSidebarType = initialState, action:ActionTypes) => {
 
-    return state
+    return {...state}
 }
 
 export default sidebarReducer;

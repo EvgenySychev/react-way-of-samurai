@@ -19,7 +19,7 @@ type StatePropsType = {
     dispatch: (action: ActionTypes) => void*/
 }
 
-const App = (props: StatePropsType) => {
+const App = (props: any) => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>

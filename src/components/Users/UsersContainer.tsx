@@ -9,9 +9,9 @@ import {
 import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
-import Users from "./Users";
+import UsersAPIComponent from "./UsersAPIComponent";
 
-type mapStatePropsType = {
+export type mapStatePropsType = {
     usersPage: InitialStateType
     pageSize: number
     totalUsersCount: number
@@ -57,4 +57,4 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
