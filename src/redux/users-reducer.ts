@@ -7,12 +7,18 @@ export type locationType = {
 
 export type UserType ={
     id:number,
-    photos:string,
+    photos:PhotoAPIType,
     followed: boolean,
     name: string,
     status: string,
     location: locationType
 }
+
+export type PhotoAPIType = {
+    small: string
+    large: string
+}
+
 
 export type InitialStateType = {
     users:Array<UserType>
@@ -29,6 +35,8 @@ const initialState:InitialStateType = {
     currentPage: 1,
     isFetching: true
 }
+
+
 
 const usersReducer = (state: InitialStateType = initialState, action: ActionTypes) : InitialStateType => {
 

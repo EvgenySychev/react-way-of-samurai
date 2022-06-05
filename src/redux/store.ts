@@ -1,4 +1,4 @@
-import profileReducer, {addPostActionCreator, upDateNewPostTextActionCreator} from "./profile-reducer";
+import profileReducer, {addPostActionCreator, upDateNewPostTextActionCreator, setUserProfile} from "./profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import dialogsReducer, {sendMessageCreator, upDateNewMessageBodyCreator} from "./dialogs-reducer";
 import {
@@ -23,9 +23,10 @@ export type postDataType = {
     message: string
     likesCount: number
 }
-export type ProfilePageType = {
+type ProfilePageType = {
     post: Array<postDataType>
     newPostText: string
+    profile:any
 }
 export type DialogsPageType = {
     dialogs: Array<DialogsItemPropsType>
@@ -50,7 +51,9 @@ export type SendMassageActionType = ReturnType<typeof sendMessageCreator>
 export type setCurrentPageACType = ReturnType<typeof setCurrentPage>
 export type setUsersTotalCountACType = ReturnType<typeof setTotalUsersCount>
 export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
-export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMassageActionType | FollowACType | UnfollowACType | SetUsersACType|setCurrentPageACType|setUsersTotalCountACType|toggleIsFetchingACType
+export type setUserProfile = ReturnType<typeof setUserProfile>
+
+export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMassageActionType | FollowACType | UnfollowACType | SetUsersACType|setCurrentPageACType|setUsersTotalCountACType|toggleIsFetchingACType | setUserProfile
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
@@ -76,7 +79,8 @@ let store:StoreType = {
                 {id: 1, message: 'Hi? How are you?', likesCount: 12},
                 {id: 2, message: "It's my first post", likesCount: 11}
             ],
-            newPostText: 'it-kamasutra'
+            newPostText: 'it-kamasutra',
+            profile:null
         },
         dialogsPage: {
             dialogs: [

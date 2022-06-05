@@ -1,11 +1,19 @@
-import {ActionTypes, postDataType, ProfilePageType} from "./store";
+import {ActionTypes, postDataType} from "./store";
 
-let initialState:ProfilePageType = {
+
+export type ProfilePageType = {
+    post: Array<postDataType>
+    newPostText: string
+    profile:any
+}
+
+let initialState: ProfilePageType = {
     post: [
         {id: 1, message: 'Hi? How are you?', likesCount: 12},
         {id: 2, message: "It's my first post", likesCount: 11}
     ],
-    newPostText: 'it-kamasutra'
+    newPostText: 'it-kamasutra',
+    profile:null
 }
 
 const profileReducer = (state: ProfilePageType = initialState, action: ActionTypes) => {
@@ -29,13 +37,24 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionTyp
                 newPostText: action.newText
             }
         }
-        default: return state
+        case 'SET_USER_PROFILE': {
+            return {
+                ...state,
+                profile: action.profile
+            }
+        }
+        default:
+            return state
     }
 
 }
 
 export const addPostActionCreator = () => {
     return {type: 'ADD-POST'} as const
+}
+
+export const setUserProfile = (profile: any) => {
+    return {type: 'SET_USER_PROFILE', profile} as const
 }
 
 export const upDateNewPostTextActionCreator = (text: string) => {

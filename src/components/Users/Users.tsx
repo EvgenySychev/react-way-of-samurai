@@ -2,44 +2,47 @@ import React from 'react'
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {InitialStateType, UserType} from "../../redux/users-reducer";
+import {NavLink} from "react-router-dom";
 
 type UsersPropsType = {
-    totalUsersCount:number
-    pageSize:number
+    totalUsersCount: number
+    pageSize: number
     currentPages: number
-    users:Array<UserType>
-    onPageChanged: (pageNumber:number) => void
+    users: Array<UserType>
+    onPageChanged: (pageNumber: number) => void
     follow: (userID: number) => void
     unfollow: (userID: number) => void
-    usersPage:InitialStateType
-    isFetching:boolean
+    usersPage: InitialStateType
+    isFetching: boolean
 }
 
-let Users = (props:UsersPropsType) => {
+let Users = (props: UsersPropsType) => {
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages = []
-    for (let i = 1; i<= pagesCount; i++ ) {
+    for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-
 
     return (
         <div>
             <div>
-                {pages.map(p=> {
-                    if (props.currentPages) {
-                        return <span className = {styles.selectedPage} onClick={(e)=> props.onPageChanged(p)} >{p}</span>
-                    }
-
+                {pages.map(p => {
+                    return <span className={props.currentPages === p ? styles.selectedPage : ''}
+                                 //здесь надо пофиксить, спан жирным не рисует
+                                 onClick={(e) => props.onPageChanged(p)}>-{p}
+                    </span>
                 })}
             </div>
             {
                 props.usersPage.users.map(u => <div key={u.id}>
+
                     <span>
                         <div>
-                            {/*<img src={u.photos.small != null ? u.photos.small : userPhoto}/>*/}
-                            <img src={userPhoto}/>
+                            <NavLink to={'/profile/' + u.id}>
+                                <img src={u.photos.small != null ? u.photos.small : userPhoto}
+                                     className={styles.userPhoto}/>
+                            </NavLink>
                         </div>
                         <div>
                             {u.followed
