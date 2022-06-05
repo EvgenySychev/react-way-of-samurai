@@ -25,7 +25,7 @@ const mapStateToProps = (state:AppStateType) : mapStatePropsType => {
     }
 }
 
-const mapDispathToProps = (dispatch: Dispatch) : mapDispatchPropsType => {
+const mapDispatchToProps = (dispatch: Dispatch) : mapDispatchPropsType => {
     return {
         updateNewPostText: (text:string) => {
             dispatch(upDateNewPostTextActionCreator(text))
@@ -36,4 +36,4 @@ const mapDispathToProps = (dispatch: Dispatch) : mapDispatchPropsType => {
     }
 }
 
-export const MyPostContainer = connect (mapStateToProps,mapDispathToProps)(MyPosts)
+export const MyPostContainer = connect (mapStateToProps,mapDispatchToProps)(MyPosts)

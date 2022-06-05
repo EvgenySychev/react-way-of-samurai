@@ -24,7 +24,6 @@ const rerenderEntireTree = () => {
 
 rerenderEntireTree()
 
-store.subscribe(( )=>rerenderEntireTree())// здесь необходимо изменить, чтобы отрисовалось дерево.
 
 
 reportWebVitals();
