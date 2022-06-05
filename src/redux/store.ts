@@ -2,12 +2,12 @@ import profileReducer, {addPostActionCreator, upDateNewPostTextActionCreator} fr
 import sidebarReducer from "./sidebar-reducer";
 import dialogsReducer, {sendMessageCreator, upDateNewMessageBodyCreator} from "./dialogs-reducer";
 import {
-    followAC,
-    setCurrentPageAC,
-    setUsersAC,
-    setUsersTotalCountAC,
-    toggleIsFetchingAC,
-    unfollowAC
+    follow,
+    setCurrentPage,
+    setUsers,
+    setTotalUsersCount,
+    toggleIsFetching,
+    unfollow
 } from "./users-reducer";
 
 type DialogsItemPropsType = {
@@ -43,13 +43,13 @@ export type friendsInSidebarType = {
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
 export type UpdateNewPostTextActionType = ReturnType<typeof upDateNewPostTextActionCreator>
 export type UpdateNewMessageBodyActionType = ReturnType<typeof upDateNewMessageBodyCreator>
-export type FollowACType = ReturnType<typeof followAC>
-export type UnfollowACType = ReturnType<typeof unfollowAC>
-export type SetUsersACType = ReturnType<typeof setUsersAC>
+export type FollowACType = ReturnType<typeof follow>
+export type UnfollowACType = ReturnType<typeof unfollow>
+export type SetUsersACType = ReturnType<typeof setUsers>
 export type SendMassageActionType = ReturnType<typeof sendMessageCreator>
-export type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
-export type setUsersTotalCountACType = ReturnType<typeof setUsersTotalCountAC>
-export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
+export type setCurrentPageACType = ReturnType<typeof setCurrentPage>
+export type setUsersTotalCountACType = ReturnType<typeof setTotalUsersCount>
+export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
 export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMassageActionType | FollowACType | UnfollowACType | SetUsersACType|setCurrentPageACType|setUsersTotalCountACType|toggleIsFetchingACType
 export type RootStateType = {
     profilePage: ProfilePageType
