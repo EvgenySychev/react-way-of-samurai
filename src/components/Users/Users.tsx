@@ -12,6 +12,7 @@ type UsersPropsType = {
     follow: (userID: number) => void
     unfollow: (userID: number) => void
     usersPage:InitialStateType
+    isFetching:boolean
 }
 
 let Users = (props:UsersPropsType) => {

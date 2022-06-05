@@ -1,7 +1,14 @@
 import profileReducer, {addPostActionCreator, upDateNewPostTextActionCreator} from "./profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import dialogsReducer, {sendMessageCreator, upDateNewMessageBodyCreator} from "./dialogs-reducer";
-import {followAC, setCurrentPageAC, setUsersAC, setUsersTotalCountAC, unfollowAC} from "./users-reducer";
+import {
+    followAC,
+    setCurrentPageAC,
+    setUsersAC,
+    setUsersTotalCountAC,
+    toggleIsFetchingAC,
+    unfollowAC
+} from "./users-reducer";
 
 type DialogsItemPropsType = {
     name: string
@@ -42,7 +49,8 @@ export type SetUsersACType = ReturnType<typeof setUsersAC>
 export type SendMassageActionType = ReturnType<typeof sendMessageCreator>
 export type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
 export type setUsersTotalCountACType = ReturnType<typeof setUsersTotalCountAC>
-export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMassageActionType | FollowACType | UnfollowACType | SetUsersACType|setCurrentPageACType|setUsersTotalCountACType
+export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
+export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMassageActionType | FollowACType | UnfollowACType | SetUsersACType|setCurrentPageACType|setUsersTotalCountACType|toggleIsFetchingACType
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
