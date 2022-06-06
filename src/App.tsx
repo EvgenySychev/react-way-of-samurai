@@ -9,14 +9,6 @@ import {NavbarContainer} from "./components/Navbar/NavbarContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 
-
-
-type StatePropsType = {
-   /* state: RootStateType
-    newPostText: string
-    dispatch: (action: ActionTypes) => void*/
-}
-
 const App = () => {
     return (
         <BrowserRouter>
@@ -27,7 +19,8 @@ const App = () => {
                 <div className='app-wrapper-content'>
                     <Routes>
                         <Route path='/dialogs/*' element={<DialogsContainer/>}/>
-                        <Route path='/profile/*' element={<ProfileContainer/>}/>
+                        <Route path='/profile' element={<ProfileContainer/>}/>
+                        <Route path='/profile/:userId' element={<ProfileContainer/>}/>
                         <Route path='/news/*' element={<News/>}/>
                         <Route path='/music/*' element={<Music/>}/>
                         <Route path='/settings/*' element={<Settings/>}/>

@@ -1,22 +1,24 @@
-
 import s from './ProfileInfo.module.css';
 import {Preloader} from "../../common/Preloader/Preloader";
 
-const ProfileInfo = (props:any) => {
+const ProfileInfo = (props: any) => {
+
     if (!props.profile) {
         return <Preloader/>
     }
 
-    return <div>
+    return (
         <div>
-            <img src='https://ophuket.ru/assets/images/freedom-beach.jpg' />
-        </div>
-        <div className={s.descriptionBlock}>
-            <img src={props.profile.photos.large} />
-            ava + description
-        </div>
+            <div>
+                <img src='https://ophuket.ru/assets/images/freedom-beach.jpg'/>
+            </div>
+            <div className={s.descriptionBlock}>
+                <img src={props.profile.photos.small}/>
+                ava + description
+            </div>
 
-    </div>
+        </div>
+    )
 }
 
 export default ProfileInfo;
