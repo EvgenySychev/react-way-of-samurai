@@ -2,10 +2,13 @@ import s from './ProfileInfo.module.css';
 import {Preloader} from "../../common/Preloader/Preloader";
 
 const ProfileInfo = (props: any) => {
+    console.log('before' + props.profile)
 
     if (!props.profile) {
         return <Preloader/>
     }
+
+    console.log('after' + props.profile)
 
     return (
         <div>

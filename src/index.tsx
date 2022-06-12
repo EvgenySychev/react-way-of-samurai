@@ -6,24 +6,18 @@ import App from "./App";
 
 import {Provider} from "react-redux";
 import {store} from "./redux/redux-store";
+import {createRoot} from "react-dom/client";
 
 
-const rerenderEntireTree = () => {
+//const rerenderEntireTree = () => {
 
-    ReactDOM.render(
-        <React.StrictMode>
+    createRoot(document.getElementById('root')!).render(
+
             <Provider store={store}>
                 <App />
-            </Provider>
-
-        </React.StrictMode>,
-        document.getElementById('root')
+            </Provider>,
     );
+//}
 
-}
-
-rerenderEntireTree()
-
-
-
+//rerenderEntireTree()
 reportWebVitals();
