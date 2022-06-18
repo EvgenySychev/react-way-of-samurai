@@ -7,6 +7,7 @@ import {Params, useLocation, useNavigate, useParams} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 import {Location} from "history";
 import {NavigateFunction} from "react-router/lib/hooks";
+import {usersAPI} from "../../api/api";
 
 export type ProfileContainerPropsType = {
     profile: ProfileType
@@ -25,7 +26,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
         console.log(this.props)
         console.log(userId)
-        axios.get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+        usersAPI.getProfile(userId)
             .then(response => {
                 this.props.setUserProfile(response.data)
             })

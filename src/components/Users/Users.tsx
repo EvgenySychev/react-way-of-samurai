@@ -3,6 +3,7 @@ import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {InitialStateType, UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 type UsersPropsType = {
     totalUsersCount: number
@@ -29,7 +30,7 @@ let Users = (props: UsersPropsType) => {
             <div>
                 {pages.map(p => {
                     return <span className={props.currentPages === p ? styles.selectedPage : ''}
-                                 //здесь надо пофиксить, спан жирным не рисует
+                        //здесь надо пофиксить, спан жирным не рисует
                                  onClick={(e) => props.onPageChanged(p)}>-{p}
                     </span>
                 })}
@@ -47,10 +48,25 @@ let Users = (props: UsersPropsType) => {
                         <div>
                             {u.followed
                                 ? <button onClick={() => {
-                                    props.unfollow(u.id)
+                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
+                                        withCredentials: true,
+                                        headers: {"API-KEY": "6e03d1d2-7960-47f3-925c-f3ab55ba6937"}
+                                    }).then(response => {
+                                        if (response.data.resultCode == 0) {
+                                            props.unfollow(u.id)
+                                        }
+
+                                    })
                                 }}> Unfollow </button>
                                 : <button onClick={() => {
-                                    props.follow(u.id)
+                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
+                                        withCredentials: true,
+                                        headers: {"API-KEY": "6e03d1d2-7960-47f3-925c-f3ab55ba6937"}
+                                    }).then(response => {
+                                        if (response.data.resultCode == 0) {
+                                            props.follow(u.id)
+                                        }
+                                    })
                                 }}> Follow </button>}
                         </div>
                     </span>
