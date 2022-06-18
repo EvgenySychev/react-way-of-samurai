@@ -3,16 +3,17 @@ import MyPosts from "./MyPosts";
 import {AppStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {postDataType} from "../../../redux/store";
-
 
 export type MyPostsPropsType = mapStatePropsType & mapDispatchPropsType
-
+type postDataType = {
+    id: number
+    message: string
+    likesCount: number
+}
 type mapStatePropsType = {
     posts: Array<postDataType>,
     newPostText: string
 }
-
 type mapDispatchPropsType = {
     updateNewPostText: (text:string) => void
     addPost: () => void

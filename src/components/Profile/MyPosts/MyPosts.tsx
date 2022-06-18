@@ -3,20 +3,6 @@ import Post from './Post/Post';
 import React, {ChangeEvent} from "react";
 import {MyPostsPropsType} from "./MyPostsContainer";
 
-type postDataType = {
-    id: number
-    message: string
-    likesCount: number
-}
-
-type postPropsType = {
-   /* post: Array<postDataType>
-    //addPost: () => void
-    newPostText: string
-    //updateNewPostText: (newText: string) => void
-    dispatch: (action:ActionTypes)=> void*/
-}
-
 const MyPosts = (props: MyPostsPropsType) => {
 
 

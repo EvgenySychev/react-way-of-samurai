@@ -1,4 +1,3 @@
-import {ActionTypes} from "./store";
 
 export type DialogsItemPropsType = {
     name: string
@@ -8,6 +7,10 @@ export type MessagesDataType = {
     message: string
     id: number
 }
+export type SendMassageActionType = ReturnType<typeof sendMessageCreator>
+export type UpdateNewMessageBodyActionType = ReturnType<typeof upDateNewMessageBodyCreator>
+
+export type ActionDialogsReduserTypes = SendMassageActionType| UpdateNewMessageBodyActionType
 
 let initialState= {
     dialogs: [
@@ -28,9 +31,9 @@ let initialState= {
     newMessageBody: ""
 }
 
-export type initialStateType = typeof initialState
+export type initialDialogsStateType = typeof initialState
 
-const dialogsReducer = (state: initialStateType = initialState, action: ActionTypes) :initialStateType => {
+const dialogsReducer = (state = initialState, action: ActionDialogsReduserTypes) :initialDialogsStateType => {
 
     switch (action.type) {
 

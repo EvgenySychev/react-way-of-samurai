@@ -2,10 +2,10 @@ import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import Navbar from "./Navbar";
-import {friendsInSidebarType} from "../../redux/store";
+import {FriendsInSidebarType} from "../../redux/sidebar-reducer";
 
 type mapStatePropsType = {
-    sidebar: friendsInSidebarType
+    sidebar: FriendsInSidebarType
 }
 
 type mapDispatchToPropsType = {

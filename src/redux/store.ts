@@ -1,4 +1,9 @@
-import profileReducer, {addPostActionCreator, upDateNewPostTextActionCreator, setUserProfile} from "./profile-reducer";
+import profileReducer, {
+    addPostActionCreator,
+    upDateNewPostTextActionCreator,
+    setUserProfile,
+    ProfileType
+} from "./profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import dialogsReducer, {sendMessageCreator, upDateNewMessageBodyCreator} from "./dialogs-reducer";
 import {
@@ -18,7 +23,7 @@ type MessagesDataType = {
     message: string
     id: number
 }
-export type postDataType = {
+type postDataType = {
     id: number
     message: string
     likesCount: number
@@ -28,38 +33,42 @@ type ProfilePageType = {
     newPostText: string
     profile:any
 }
-export type DialogsPageType = {
+type DialogsPageType = {
     dialogs: Array<DialogsItemPropsType>
     messages: Array<MessagesDataType>
     newMessageBody: string
 }
-export type SidebarType = {
+type SidebarType = {
     id: number
     name: string
     img: string
 }
-export type friendsInSidebarType = {
+type friendsInSidebarType = {
     friendsInSidebar: Array<SidebarType>
 }
-export type AddPostActionType = ReturnType<typeof addPostActionCreator>
-export type UpdateNewPostTextActionType = ReturnType<typeof upDateNewPostTextActionCreator>
-export type UpdateNewMessageBodyActionType = ReturnType<typeof upDateNewMessageBodyCreator>
-export type FollowACType = ReturnType<typeof follow>
-export type UnfollowACType = ReturnType<typeof unfollow>
-export type SetUsersACType = ReturnType<typeof setUsers>
-export type SendMassageActionType = ReturnType<typeof sendMessageCreator>
-export type setCurrentPageACType = ReturnType<typeof setCurrentPage>
-export type setUsersTotalCountACType = ReturnType<typeof setTotalUsersCount>
-export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
-export type setUserProfile = ReturnType<typeof setUserProfile>
+type AddPostActionType = ReturnType<typeof addPostActionCreator>
+type UpdateNewPostTextActionType = ReturnType<typeof upDateNewPostTextActionCreator>
+type UpdateNewMessageBodyActionType = ReturnType<typeof upDateNewMessageBodyCreator>
+type FollowACType = ReturnType<typeof follow>
+type UnfollowACType = ReturnType<typeof unfollow>
+type SetUsersACType = ReturnType<typeof setUsers>
+type SendMassageActionType = ReturnType<typeof sendMessageCreator>
+type setCurrentPageACType = ReturnType<typeof setCurrentPage>
+type setUsersTotalCountACType = ReturnType<typeof setTotalUsersCount>
+type toggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
+type setUserProfileType = ReturnType<typeof setUserProfile>
 
-export type ActionTypes = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType | SendMassageActionType | FollowACType | UnfollowACType | SetUsersACType|setCurrentPageACType|setUsersTotalCountACType|toggleIsFetchingACType | setUserProfile
-export type RootStateType = {
+type ActionProfileReducersTypes = AddPostActionType | setUserProfile | UpdateNewPostTextActionType
+type ActionDialogsReducerTypes = SendMassageActionType| UpdateNewMessageBodyActionType
+type ActionSidebarReducerTypes = {}
+
+type ActionTypes = ActionProfileReducersTypes | ActionDialogsReducerTypes | ActionSidebarReducerTypes
+type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: friendsInSidebarType
 }
-export type StoreType = {
+type StoreType = {
     state: RootStateType
     //addPost: () => void
     //updateNewPostText: () => void
@@ -67,11 +76,7 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
     getState: () => RootStateType
 }
-
-/*export type ObserveType = {
-    observer: (state:RootStateType) => void
-}*/
-
+/*
 let store:StoreType = {
     state: {
         profilePage: {
@@ -80,7 +85,7 @@ let store:StoreType = {
                 {id: 2, message: "It's my first post", likesCount: 11}
             ],
             newPostText: 'it-kamasutra',
-            profile:null
+            profile:{} as ProfileType
         },
         dialogsPage: {
             dialogs: [
@@ -134,10 +139,10 @@ let store:StoreType = {
         rerenderEntireTree()
 
     }
-}
+}*/
 
 let rerenderEntireTree = () => {
 
 }
 
-export default store;
+//export default store;

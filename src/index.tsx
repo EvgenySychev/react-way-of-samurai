@@ -7,15 +7,11 @@ import {store} from "./redux/redux-store";
 import {createRoot} from "react-dom/client";
 
 
-//const rerenderEntireTree = () => {
+createRoot(document.getElementById('root')!).render(
+    <Provider store={store}>
+        <App/>
+    </Provider>,
+);
 
-    createRoot(document.getElementById('root')!).render(
 
-            <Provider store={store}>
-                <App />
-            </Provider>,
-    );
-//}
-
-//rerenderEntireTree()
 reportWebVitals();

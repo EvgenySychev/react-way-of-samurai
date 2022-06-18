@@ -1,8 +1,9 @@
-import {friendsInSidebarType} from "../../../redux/store";
+
 import s from './Friends.module.css';
+import {FriendsInSidebarType} from "../../../redux/sidebar-reducer";
 
 type FriendPropsType = {
-    stateN:friendsInSidebarType
+    stateN:FriendsInSidebarType
 }
 
 const Friends = (props:FriendPropsType) => {

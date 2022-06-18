@@ -1,10 +1,8 @@
-import {ActionTypes} from "./store";
 
 export type locationType = {
     city: string,
     country: string
 }
-
 export type UserType ={
     id:number,
     photos:PhotoAPIType,
@@ -13,13 +11,10 @@ export type UserType ={
     status: string,
     location: locationType
 }
-
 export type PhotoAPIType = {
     small: string
     large: string
 }
-
-
 export type InitialStateType = {
     users:Array<UserType>
     pageSize: number
@@ -27,6 +22,15 @@ export type InitialStateType = {
     currentPage: number
     isFetching: boolean
 }
+export type FollowACType = ReturnType<typeof follow>
+export type UnfollowACType = ReturnType<typeof unfollow>
+export type SetUsersACType = ReturnType<typeof setUsers>
+export type setCurrentPageACType = ReturnType<typeof setCurrentPage>
+export type setUsersTotalCountACType = ReturnType<typeof setTotalUsersCount>
+export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
+
+export type ActionUsersReducerTypes = FollowACType | UnfollowACType | SetUsersACType |setCurrentPageACType | setUsersTotalCountACType | toggleIsFetchingACType
+
 
 const initialState:InitialStateType = {
     users: [],
@@ -38,7 +42,7 @@ const initialState:InitialStateType = {
 
 
 
-const usersReducer = (state: InitialStateType = initialState, action: ActionTypes) : InitialStateType => {
+const usersReducer = (state = initialState, action: ActionUsersReducerTypes) : InitialStateType => {
 
     switch (action.type) {
         case 'FOLLOW':
