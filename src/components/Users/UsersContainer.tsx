@@ -4,7 +4,7 @@ import {
     setCurrentPage,
     setUsers, setTotalUsersCount, toggleIsFetching,
     unfollow,
-    UserType
+    UserType, toggleFollowingProgress
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
@@ -19,6 +19,7 @@ export type mapStatePropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: Array<number>
 }
 
 type mapDispatchPropsType = {
@@ -69,6 +70,9 @@ class UsersContainer extends React.Component<any, any> {
                    unfollow={this.props.unfollow}
                    usersPage={this.props.usersPage}
                    isFetching={this.props.isFetching}
+                   followingInProgress={this.props.followingInProgress}
+                   toggleFollowingProgress={this.props.toggleFollowingProgress}
+
 
             />
         </>
@@ -81,7 +85,8 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
@@ -114,6 +119,7 @@ export default connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
-    toggleIsFetching
+    toggleIsFetching,
+    toggleFollowingProgress
 })(UsersContainer)
 
