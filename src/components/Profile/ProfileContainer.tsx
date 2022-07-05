@@ -2,10 +2,11 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {getUserProfile, ProfileType} from "../../redux/profile-reducer";
-import {Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 import {Location} from "history";
 import {NavigateFunction} from "react-router/lib/hooks";
+import {WithAuthRedirectComponent} from "../../hoc/WithAuthRedirect";
 
 export type ProfileContainerPropsType = {
     profile: ProfileType
@@ -16,6 +17,10 @@ export type ProfileContainerPropsType = {
     }
     getUserProfile: (data: ProfileType) => void
     isAuth:boolean
+}
+
+type mapStatePropsType = {
+    profile: ProfileType
 }
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
@@ -34,16 +39,17 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
     render() {
 
-        if (!this.props.isAuth) return <Navigate to={'/login'}  />
+
         return <div>
             <Profile {...this.props} profile={this.props.profile}/>
         </div>
     }
 }
 
-let mapStateToProps = (state: AppStateType) => ({
-    profile: state.profilePage.profile,
-    isAuth: state.auth.isAuth
+let AuthRedirectComponent = WithAuthRedirectComponent(ProfileContainer)
+
+let mapStateToProps = (state: AppStateType):mapStatePropsType => ({
+    profile: state.profilePage.profile
 })
 
 function withRouter(Component: any) {
@@ -51,7 +57,6 @@ function withRouter(Component: any) {
         let location = useLocation();
         let navigate = useNavigate();
         let params = useParams();
-        console.log(params)
 
         return (
             <Component
@@ -64,4 +69,4 @@ function withRouter(Component: any) {
     return ComponentWithRouterProp;
 }
 
-export default connect(mapStateToProps, {getUserProfile})(withRouter(ProfileContainer));
+export default connect(mapStateToProps, {getUserProfile})(withRouter(AuthRedirectComponent));
