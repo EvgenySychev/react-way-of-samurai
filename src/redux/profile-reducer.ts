@@ -1,3 +1,5 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 export type ProfilePageType = {
     post: Array<postDataType>
@@ -5,21 +7,21 @@ export type ProfilePageType = {
     profile: ProfileType
 }
 export type ProfileType = {
-    aboutMe: string
-    contacts: {
-        facebook: string
-        website: string
-        vk: string
-        twitter: string
-        instagram: string
-        youtube: string
-        github: string
-        mainLink: string
-    }
+    userId: number
     lookingForAJob: false
     lookingForAJobDescription: string
+    aboutMe: string
     fullName: string
-    userId: number
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
     photos: {
         small: string
         large: string
@@ -82,12 +84,19 @@ export const addPostActionCreator = () => {
     return {type: 'ADD-POST'} as const
 }
 
-export const setUserProfile = (profile: any) => {
+export const setUserProfile = (profile: ProfileType) => {
     return {type: 'SET_USER_PROFILE', profile} as const
 }
 
 export const upDateNewPostTextActionCreator = (text: string) => {
     return {type: 'UPDATE-NEW-POST-TEXT', newText: text} as const
+}
+
+export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
+    usersAPI.getProfile(userId)
+        .then(response => {
+            dispatch(setUserProfile(response.data))
+        })
 }
 
 export default profileReducer;

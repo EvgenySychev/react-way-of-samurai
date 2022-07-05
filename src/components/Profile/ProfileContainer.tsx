@@ -1,22 +1,20 @@
 import React from "react";
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
-import {ProfileType, setUserProfile} from "../../redux/profile-reducer";
-import {Params, useLocation, useNavigate, useParams} from "react-router-dom";
+import {getUserProfile, ProfileType} from "../../redux/profile-reducer";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 import {Location} from "history";
 import {NavigateFunction} from "react-router/lib/hooks";
-import {usersAPI} from "../../api/api";
 
 export type ProfileContainerPropsType = {
     profile: ProfileType
     router: {
         location: Location
         navigate: NavigateFunction
-        params:  Readonly<Params<"userId">>
+        params: any
     }
-    setUserProfile: (data: ProfileType) => void
+    getUserProfile: (data: ProfileType) => void
 }
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
@@ -24,12 +22,12 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
         let userId = this.props.router.params.userId;
 
-        console.log(this.props)
+        if (!userId) {
+            userId = 7429
+            console.log(userId)
+        }
         console.log(userId)
-        usersAPI.getProfile(userId)
-            .then(response => {
-                this.props.setUserProfile(response.data)
-            })
+        this.props.getUserProfile(userId)
     }
 
 
@@ -48,7 +46,8 @@ function withRouter(Component: any) {
     function ComponentWithRouterProp(props: any) {
         let location = useLocation();
         let navigate = useNavigate();
-        let params = useParams<'userId'>();
+        let params = useParams();
+        console.log(params)
 
         return (
             <Component
@@ -61,4 +60,4 @@ function withRouter(Component: any) {
     return ComponentWithRouterProp;
 }
 
-export default connect(mapStateToProps, {setUserProfile})(withRouter(ProfileContainer));
+export default connect(mapStateToProps, {getUserProfile})(withRouter(ProfileContainer));
