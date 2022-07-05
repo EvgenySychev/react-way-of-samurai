@@ -11,7 +11,7 @@ export type InitialStateType = {
 }
 
 const initialState = {
-    userId: 2,
+    userId: 7429,
     email: '',
     login: '',
     isFetching: true,
