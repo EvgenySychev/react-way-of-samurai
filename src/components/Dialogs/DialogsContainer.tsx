@@ -1,10 +1,9 @@
 
 import {AppStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {connect} from "react-redux";
 import Dialogs from "./Dialogs";
 import {initialDialogsStateType, sendMessageCreator, upDateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
-import {Navigate} from "react-router-dom";
 import React from "react";
 import {WithAuthRedirectComponent} from "../../hoc/WithAuthRedirect";
 
@@ -37,6 +36,7 @@ const mapDispathToProps = (dispatch: Dispatch) : mapDispatchPropsType => {
     }
 }
 
-let AuthRedirectComponent = WithAuthRedirectComponent(Dialogs)
-
-export const DialogsContainer = connect (mapStateToProps,mapDispathToProps)(AuthRedirectComponent)
+export const DialogsContainer = compose <React.ComponentType>(
+    connect (mapStateToProps,mapDispathToProps),
+    WithAuthRedirectComponent
+)(Dialogs)
