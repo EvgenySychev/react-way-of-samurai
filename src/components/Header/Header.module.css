@@ -9,6 +9,12 @@
     width: 60px;
 }
 
+.login {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 /*.loginBlock {
     float: right;
 }*/
@@ -20,6 +26,5 @@
 
 
 .loginBlock {
-
     color: white;
 }
