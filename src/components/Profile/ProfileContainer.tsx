@@ -24,7 +24,7 @@ type mapStatePropsType = {
     profile: ProfileType
 }
 
-class ProfileContainer extends React.Component<ProfileContainerPropsType> {
+export class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
     componentDidMount() {
         let userId = this.props.router.params.userId;
@@ -51,7 +51,7 @@ let mapStateToProps = (state: AppStateType):mapStatePropsType => ({
     profile: state.profilePage.profile
 })
 
-function withRouter <T>(Component: ComponentType<T>) {
+const withRouter = (Component: any) => {
     function ComponentWithRouterProp(props: any) {
         let location = useLocation();
         let navigate = useNavigate();
@@ -59,7 +59,7 @@ function withRouter <T>(Component: ComponentType<T>) {
 
         return (
             <Component
-                {...props as T}
+                {...props}
                 router={{location, navigate, params}}
             />
         );
@@ -68,7 +68,7 @@ function withRouter <T>(Component: ComponentType<T>) {
     return ComponentWithRouterProp;
 }
 
-export default compose <React.ComponentType>(
+export const ProfileContainerWrapper = compose <React.ComponentType>(
     connect(mapStateToProps, {getUserProfile}),
     withRouter,
     WithAuthRedirectComponent

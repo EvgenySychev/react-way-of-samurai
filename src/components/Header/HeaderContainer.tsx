@@ -13,7 +13,7 @@ type HeaderContainerPropsType = {
 }*/
 
 
-class HeaderContainer extends React.Component<any> {
+export class HeaderContainer extends React.Component<any> {
 
     componentDidMount() {
         this.props.getAuthUserData()

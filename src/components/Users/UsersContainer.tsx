@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import React from "react";
 import Users from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {compose} from "redux";
 
 
 export type mapStatePropsType = {
@@ -30,7 +31,7 @@ type mapDispatchPropsType = {
 
 export type UsersPropsType = mapStatePropsType & mapDispatchPropsType
 
-class UsersContainer extends React.Component<any, any> {
+export class UsersContainer extends React.Component<any, any> {
 
     componentDidMount() {
         this.props.getUsersTC(this.props.currentPages, this.props.pageSize)
@@ -70,11 +71,14 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     }
 }
 
-export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setCurrentPage,
-    toggleFollowingProgress,
-    getUsersTC
-})(UsersContainer)
+export const UsersContainerWrapper = compose (
+    connect(mapStateToProps, {
+        follow,
+        unfollow,
+        setCurrentPage,
+        toggleFollowingProgress,
+        getUsersTC
+    })
+)
+(UsersContainer)
 

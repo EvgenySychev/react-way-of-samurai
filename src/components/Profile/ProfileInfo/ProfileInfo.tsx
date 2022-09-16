@@ -1,6 +1,7 @@
 import s from './ProfileInfo.module.css';
 import {Preloader} from "../../common/Preloader/Preloader";
 import imgProfile from "./../../../assets/images/freedom-beach.jpg"
+import {ProfileStatus} from "./ProfileStatus"
 
 const ProfileInfo = (props: any) => {
 
@@ -10,12 +11,12 @@ const ProfileInfo = (props: any) => {
 
     return (
         <div>
-            <div >
+           {/* <div >
                 <img className={s.img} src={imgProfile}/>
-            </div>
+            </div>*/}
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos?.small}/>
-                ava + description
+                <ProfileStatus status={'Hello'}/>
             </div>
 
         </div>
