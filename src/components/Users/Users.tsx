@@ -4,7 +4,6 @@ import userPhoto from "../../assets/images/user.png";
 import {InitialStateType, UserType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 
-
 type UsersPropsType = {
     totalUsersCount: number
     pageSize: number
@@ -15,8 +14,6 @@ type UsersPropsType = {
     unfollow: (userID: number) => void
     usersPage: InitialStateType
     followingInProgress:Array<number>
-
-
 }
 
 let Users = (props: UsersPropsType) => {
@@ -61,10 +58,7 @@ let Users = (props: UsersPropsType) => {
                         <span>
                             <div>{u.name}</div>
                             <div>{u.status}</div>
-                        </span>
-                        <span>
-                            <div>{"u.location.country"}</div>
-                            <div>{"u.location.city"}</div>
+                            <div>{`ID ${u.id}`}</div>
                         </span>
                     </span>
                 </div>)

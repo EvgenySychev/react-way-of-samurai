@@ -1,4 +1,4 @@
-import React, {ComponentType} from "react";
+import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {getStatus, getUserProfile, ProfileType, updateStatus} from "../../redux/profile-reducer";
@@ -36,11 +36,10 @@ export class ProfileContainer extends React.Component<ProfileContainerPropsType>
             userId = 7429
             console.log(userId)
         }
-        console.log(userId)
+
         this.props.getUserProfile(userId)
         this.props.getStatus(userId)
     }
-
 
     render() {
 
