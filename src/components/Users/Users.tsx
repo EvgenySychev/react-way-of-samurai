@@ -18,6 +18,7 @@ type UsersPropsType = {
 
 let Users = (props: UsersPropsType) => {
 
+
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages = []
     for (let i = 1; i <= pagesCount; i++) {
@@ -28,9 +29,10 @@ let Users = (props: UsersPropsType) => {
         <div>
             <div>
                 {pages.map(p => {
-                    return <span className={props.currentPages === p ? styles.selectedPage : ''}
+                    return <span
+                        className={props.currentPages === p ? styles.selectedPage : ''}
                         //здесь надо пофиксить, спан жирным не рисует
-                                 onClick={(e) => props.onPageChanged(p)}>-{p}
+                        onClick={(e) => props.onPageChanged(p)}>-{p}
                     </span>
                 })}
             </div>
