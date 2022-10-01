@@ -17,9 +17,7 @@ export const usersAPI = {
             })
     },
 
-    getProfile (userId:number) {
-        return instance.get<ProfileType>(`profile/${userId}`)
-    },
+
     follow (userId:number) {
 return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
     },
@@ -27,6 +25,22 @@ return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${user
         return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`
         )
     },
+    getProfile (userId:number) {
+        console.warn('Please use profileAPI object')
+        return profileAPI.getProfile(userId)
+    },
+}
+
+export const profileAPI = {
+    getProfile (userId:number) {
+        return instance.get<ProfileType>(`profile/${userId}`)
+    },
+    getStatus (userId:number) {
+        return instance.get<string>(`profile/status/${userId}`)
+    },
+    updateStatus (status:string) {
+        return instance.put<any>(`profile/status/`,{status:status}) //проверить типизацию
+    }
 }
 
 export const authAPI = {
