@@ -1,6 +1,6 @@
 
 import s from './Friends.module.css';
-import {FriendsInSidebarType, SidebarType} from "../../../redux/sidebar-reducer";
+import {SidebarType} from "../../../redux/sidebar-reducer";
 
 type FriendPropsType = {
     friendsInSidebar: Array<SidebarType>

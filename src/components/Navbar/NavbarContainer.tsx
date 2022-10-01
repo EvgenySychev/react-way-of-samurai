@@ -2,7 +2,7 @@ import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import Navbar from "./Navbar";
-import {FriendsInSidebarType, SidebarType} from "../../redux/sidebar-reducer";
+import {SidebarType} from "../../redux/sidebar-reducer";
 
 type mapStatePropsType = {
     friendsInSidebar: Array<SidebarType>

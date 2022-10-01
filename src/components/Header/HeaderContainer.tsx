@@ -5,14 +5,6 @@ import {getAuthUserData} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 
 
-/*
-type HeaderContainerPropsType = {
-    isAuth: boolean
-    login: string
-    setAuthUserData: (id:string,email:string,login:string) => void
-}*/
-
-
 class HeaderContainer extends React.Component<any> {
 
     componentDidMount() {
