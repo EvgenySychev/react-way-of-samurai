@@ -4,14 +4,15 @@ import reportWebVitals from './reportWebVitals';
 import App from "./App";
 import {Provider} from "react-redux";
 import {store} from "./redux/redux-store";
-// @ts-ignore
-import {createRoot} from "react-dom/client";
+import ReactDOM from 'react-dom';
 
 
-createRoot(document.getElementById('root')!).render(
+ReactDOM.render(
     <Provider store={store}>
         <App/>
-    </Provider>,
+    </Provider>
+    ,
+    document.getElementById('root')
 );
 
 

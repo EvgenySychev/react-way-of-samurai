@@ -71,7 +71,7 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     }
 }
 
-export const UsersContainerWrapper = compose (
+export const UsersContainerWrapper = compose<React.ComponentType>(
     connect(mapStateToProps, {
         follow,
         unfollow,

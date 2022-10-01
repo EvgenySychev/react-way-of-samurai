@@ -2,21 +2,21 @@ import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import Navbar from "./Navbar";
-import {FriendsInSidebarType} from "../../redux/sidebar-reducer";
+import {FriendsInSidebarType, SidebarType} from "../../redux/sidebar-reducer";
 
 type mapStatePropsType = {
-    sidebar: FriendsInSidebarType
+    friendsInSidebar: Array<SidebarType>
 }
 
 type mapDispatchToPropsType = {
 
 }
 
-export type NavbarType = mapStatePropsType & mapDispatchToPropsType
+export type NavbarType = mapStatePropsType // & mapDispatchToPropsType
 
-const mapStateToProps = (state:AppStateType): mapStatePropsType => {
+const mapStateToProps = (state:AppStateType) => {
     return {
-        sidebar: state.sidebar
+        friendsInSidebar: state.sidebar.friendsInSidebar
     }
 }
 
@@ -26,4 +26,4 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     }
 }
 
-export const NavbarContainer = connect (mapStateToProps,mapDispatchToProps)(Navbar)
+export const NavbarContainer = connect<mapStatePropsType, null, any, AppStateType>(mapStateToProps, null)(Navbar)
