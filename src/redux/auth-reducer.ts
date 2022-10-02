@@ -13,7 +13,7 @@ export type InitialStateType = {
 }
 
 const initialState = {
-    userId: 7429,
+    userId: 0,
     email: '',
     login: '',
     isFetching: true,
@@ -26,8 +26,7 @@ const authReducer = (state = initialState, action: authReducerActionType): Initi
         case "SET_USER_DATA" :
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.data
             }
         case "SET_IS_LOGGED_IN" :
             return {
@@ -39,8 +38,8 @@ const authReducer = (state = initialState, action: authReducerActionType): Initi
     }
 }
 
-export const setAuthUserData = (usersId: number, email: string, login: string) => (
-    {type: 'SET_USER_DATA', data: {usersId, email, login}} as const
+export const setAuthUserData = (usersId: number, email: string, login: string, isAuth:boolean) => (
+    {type: 'SET_USER_DATA', data: {usersId, email, login, isAuth}} as const
 )
 
 export const setIsLoggedInAC = (isAuth:boolean) => (
@@ -53,7 +52,7 @@ export const getAuthUserData = () => (dispatch: Dispatch) => {
         .then(response => {
             if (response.data.resultCode === 0) {
                 let {id, login, email} = response.data.data
-                dispatch(setAuthUserData(id, email, login))
+                dispatch(setAuthUserData(id, email, login, true))
             }
         })
 }
@@ -62,9 +61,19 @@ export const loginTC = ({email, password, rememberMe}:LoginParamsType) => (dispa
     authAPI.login({email, password, rememberMe})
         .then((response => {
             if (response.data.resultCode === 0) {
-                dispatch(setIsLoggedInAC(true))
+                // @ts-ignore
+                dispatch(getAuthUserData())
             }
         }))
+}
+
+export const logoutTC = () => (dispatch: Dispatch) => {
+    authAPI.logout()
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserData(0, '', '', false))
+            }
+        })
 }
 
 export default authReducer;
