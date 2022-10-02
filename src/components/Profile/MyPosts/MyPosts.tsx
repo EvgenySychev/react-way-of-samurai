@@ -35,8 +35,12 @@ const MyPosts = (props: MyPostsPropsType) => {
             My posts
             <form onSubmit={formik.handleSubmit}>
                 <div>
-                    <textarea rows={7} cols={50} maxLength={151}
-                              placeholder='Enter your message, max 150 symbols' {...formik.getFieldProps("newPostText")}
+                    <textarea
+                        rows={7}
+                        cols={50}
+                        maxLength={151}
+                        placeholder='Enter your message, max 150 symbols'
+                        {...formik.getFieldProps("newPostText")}
                     />
                     {formik.errors.newPostText ?
                         <div style={{color: 'indianred'}}>{formik.errors.newPostText}</div> : null}
