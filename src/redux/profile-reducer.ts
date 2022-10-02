@@ -35,10 +35,9 @@ export type postDataType = {
 }
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
 export type setUserProfile = ReturnType<typeof setUserProfile>
-export type UpdateNewPostTextActionType = ReturnType<typeof upDateNewPostTextActionCreator>
 export type setStatusActionType = ReturnType<typeof setStatus>
 
-export type ActionProfileReducersTypes = AddPostActionType | setUserProfile | UpdateNewPostTextActionType | setStatusActionType
+export type ActionProfileReducersTypes = AddPostActionType | setUserProfile | setStatusActionType
 
 let initialState: ProfilePageType = {
     post: [
@@ -56,19 +55,13 @@ const profileReducer = (state = initialState, action: ActionProfileReducersTypes
         case "ADD-POST": {
             let newPost: postDataType = {
                 id: new Date().getTime(),
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 0
             }
             return {
                 ...state,
                 post: [...state.post, newPost],
                 newPostText: ''
-            }
-        }
-        case "UPDATE-NEW-POST-TEXT": {
-            return {
-                ...state,
-                newPostText: action.newText
             }
         }
         case 'SET_USER_PROFILE': {
@@ -87,16 +80,12 @@ const profileReducer = (state = initialState, action: ActionProfileReducersTypes
 
 }
 
-export const addPostActionCreator = () => {
-    return {type: 'ADD-POST'} as const
+export const addPostActionCreator = (newPostText:string) => {
+    return {type: 'ADD-POST',newPostText} as const
 }
 
 export const setUserProfile = (profile: ProfileType) => {
     return {type: 'SET_USER_PROFILE', profile} as const
-}
-
-export const upDateNewPostTextActionCreator = (text: string) => {
-    return {type: 'UPDATE-NEW-POST-TEXT', newText: text} as const
 }
 
 export const setStatus = (status: string) => {

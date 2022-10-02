@@ -1,33 +1,34 @@
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import React, {ChangeEvent} from "react";
+import React from "react";
 import {MyPostsPropsType} from "./MyPostsContainer";
+import {useFormik} from "formik";
 
 const MyPosts = (props: MyPostsPropsType) => {
 
+    const formik = useFormik({
+        initialValues: {
+            newPostText:''
+        },
+        onSubmit: values => {
+            props.addPost(values.newPostText)
+        }
+    })
 
     let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
-
-    const addPost = () => {
-        props.addPost()
-    }
-
-    let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPostText(e.currentTarget.value)
-    }
 
     return (
         <div className={s.postsBlock}>
             My posts
-            <div>
+            <form onSubmit={formik.handleSubmit}>
                 <div>
-                    <textarea onChange={onPostChange}
-                              value={props.newPostText}/>
+                    <textarea placeholder='Enter your message' {...formik.getFieldProps("newPostText")}
+                              />
                 </div>
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    <button>Add post</button>
                 </div>
-            </div>
+            </form>
             <div className={s.posts}>
                 {postsElements}
             </div>

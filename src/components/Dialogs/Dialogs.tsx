@@ -1,21 +1,25 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from "./DialogsItem/DialogItem";
 import Message from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
+import {useFormik} from "formik";
 
 const Dialogs = (props: DialogsPropsType) => {
 
     let dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
 
     let messagesElements = props.dialogsPage.messages.map(m => <Message message={m.message}/>)
-    let onSendMessageClick = () => {
-        props.onSendMessageClick()
 
-    }
-    let onSendMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.onSendMessageChange(e.currentTarget.value)
-    }
+    const formik = useFormik({
+        initialValues:{
+            newMessageBody:''
+        },
+        onSubmit: values => {
+            formik.resetForm()
+            props.onSendMessage(values.newMessageBody)
+        }
+    })
 
     return (
         <div className={s.dialogs}>
@@ -24,16 +28,15 @@ const Dialogs = (props: DialogsPropsType) => {
             </div>
             <div className={s.messages}>
                 <div>{messagesElements}</div>
-                <div>
+                <form onSubmit={formik.handleSubmit}>
                     <div>
                         <textarea
-                        onChange={onSendMessageChange}
-                        value={props.dialogsPage.newMessageBody} placeholder='Enter your message'> </textarea>
-                        </div>
-                    <div>
-                        <button onClick={onSendMessageClick}>Send</button>
+                             placeholder='Enter your message' {...formik.getFieldProps("newMessageBody")}/>
                     </div>
-                </div>
+                    <div>
+                        <button type="submit">Send</button>
+                    </div>
+                </form>
             </div>
         </div>)
 }
