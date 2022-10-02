@@ -30,8 +30,8 @@ export const Login = () => {
             }
             if (!values.password) {
                 errors.password = 'Required';
-            } else if (values.password.length < 2) {
-                errors.password = 'Invalid password, should be >2 and <16';
+            } else if (values.password.length < 5) {
+                errors.password = 'Invalid password, should be >5 and <16';
             }
             return errors;
         },
@@ -45,26 +45,30 @@ export const Login = () => {
         return <Navigate to="/"/>
     }
 
-    return <div>
-        <h1>LOGIN</h1>
-        <form onSubmit={formik.handleSubmit}>
-            <div>
-                <input placeholder={"Email"} {...formik.getFieldProps("email")}/>
-            </div>
-            <div>
-                <input type={"password"} placeholder={"Password"} {...formik.getFieldProps("password")}/>
-            </div>
-            <div>
-                <input type="checkbox" onChange={formik.handleChange}
-                       checked={formik.values.rememberMe}
-                       name="rememberMe"
-                /> remember me
-            </div>
-            <div>
-                <button>Login</button>
-            </div>
-        </form>
-    </div>
-
-
+    return (
+        <div>
+            <h1>LOGIN</h1>
+            <form onSubmit={formik.handleSubmit}>
+                <div style={{height: '50px'}}>
+                    <input placeholder={"Email"} {...formik.getFieldProps("email")}/>
+                    {formik.touched.email && formik.errors.email ?
+                        <div style={{color: 'indianred'}}>{formik.errors.email}</div> : null}
+                </div>
+                <div style={{height: '50px'}}>
+                    <input type={"password"} placeholder={"Password"} {...formik.getFieldProps("password")}/>
+                    {formik.touched.password && formik.errors.password ?
+                        <div style={{color: 'indianred'}}>{formik.errors.password}</div> : null}
+                </div>
+                <div style={{height: '50px'}}>
+                    <input type="checkbox" onChange={formik.handleChange}
+                           checked={formik.values.rememberMe}
+                           name="rememberMe"
+                    /> remember me
+                </div>
+                <div>
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    )
 }

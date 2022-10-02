@@ -4,13 +4,26 @@ import React from "react";
 import {MyPostsPropsType} from "./MyPostsContainer";
 import {useFormik} from "formik";
 
+type FormikErrorType = {
+    newPostText?: string
+}
+
 const MyPosts = (props: MyPostsPropsType) => {
 
     const formik = useFormik({
         initialValues: {
-            newPostText:''
+            newPostText: ''
+        },
+        validate: (values) => {
+            const errors: FormikErrorType = {};
+            if (values.newPostText.length > 150) {
+                errors.newPostText = 'the message is too long, it may be less than 150 characters';
+                values.newPostText = values.newPostText.slice(0, -1)
+            }
+            return errors;
         },
         onSubmit: values => {
+            formik.resetForm()
             props.addPost(values.newPostText)
         }
     })
@@ -22,8 +35,11 @@ const MyPosts = (props: MyPostsPropsType) => {
             My posts
             <form onSubmit={formik.handleSubmit}>
                 <div>
-                    <textarea placeholder='Enter your message' {...formik.getFieldProps("newPostText")}
-                              />
+                    <textarea rows={7} cols={50} maxLength={151}
+                              placeholder='Enter your message, max 150 symbols' {...formik.getFieldProps("newPostText")}
+                    />
+                    {formik.errors.newPostText ?
+                        <div style={{color: 'indianred'}}>{formik.errors.newPostText}</div> : null}
                 </div>
                 <div>
                     <button>Add post</button>
