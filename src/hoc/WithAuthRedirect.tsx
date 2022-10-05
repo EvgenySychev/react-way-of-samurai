@@ -1,5 +1,5 @@
 import {Navigate} from "react-router-dom";
-import React, {ComponentType} from "react";
+import React from "react";
 import {AppStateType} from "../redux/redux-store";
 import {connect} from "react-redux";
 

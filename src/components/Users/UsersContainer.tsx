@@ -6,10 +6,9 @@ import {
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import React from "react";
-import Users from "./Users";
+import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {compose} from "redux";
-
 
 export type mapStatePropsType = {
     usersPage: InitialStateType
@@ -42,8 +41,9 @@ export class UsersContainer extends React.Component<any, any> {
         this.props.getUsersTC(pageNumber, this.props.pageSize)
     }
 
-    render() {
 
+
+    render() {
         return <>
             {this.props.isFetching ? <Preloader/> : null}
             <Users totalUsersCount={this.props.totalUsersCount}
@@ -77,7 +77,7 @@ export const UsersContainerWrapper = compose<React.ComponentType>(
         unfollow,
         setCurrentPage,
         toggleFollowingProgress,
-        getUsersTC
+        getUsersTC,
     })
 )
 (UsersContainer)
