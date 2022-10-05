@@ -25,6 +25,9 @@ export type ProfileContainerPropsType = {
 type mapStatePropsType = {
     profile: ProfileType
     status: string
+    autorizedUserId: number
+    isAuth: boolean
+
 }
 
 export class ProfileContainer extends React.Component<ProfileContainerPropsType> {
@@ -34,7 +37,6 @@ export class ProfileContainer extends React.Component<ProfileContainerPropsType>
 
         if (!userId) {
             userId = 7429
-            console.log(userId)
         }
 
         this.props.getUserProfile(userId)
@@ -51,7 +53,10 @@ export class ProfileContainer extends React.Component<ProfileContainerPropsType>
 
 let mapStateToProps = (state: AppStateType):mapStatePropsType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    autorizedUserId: state.auth.userId,
+    isAuth: state.auth.isAuth
+
 })
 
 const withRouter = (Component: any) => {

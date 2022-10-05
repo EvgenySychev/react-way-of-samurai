@@ -24,7 +24,7 @@ const Header = (props: any) => {
                     ? (<div>{props.login}
                         <button onClick={logout}>LOGOUT</button>
                     </div>)
-                    : <Navigate to="/login"/>
+                    : ''
                 }
             </div>
         </div>

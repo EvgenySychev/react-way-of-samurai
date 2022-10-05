@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {authAPI, LoginParamsType} from "../api/api";
+import {setinitializedSuccess} from "./app-reducer";
 
 type authReducerActionType = setAuthUserDataActionType | setIsLoggedInACActionType
 type setAuthUserDataActionType = ReturnType<typeof setAuthUserData>
@@ -55,6 +56,9 @@ export const getAuthUserData = () => (dispatch: Dispatch) => {
                 dispatch(setAuthUserData(id, email, login, true))
             }
         })
+        .then(()=>{
+            dispatch(setinitializedSuccess())
+        })
 }
 
 export const loginTC = ({email, password, rememberMe}:LoginParamsType) => (dispatch: Dispatch) => {
@@ -63,7 +67,9 @@ export const loginTC = ({email, password, rememberMe}:LoginParamsType) => (dispa
             if (response.data.resultCode === 0) {
                 // @ts-ignore
                 dispatch(getAuthUserData())
-            }
+            } else if (response.data.messages.length) {
+                alert(response.data.messages[0])
+            } else alert("some error")
         }))
 }
 
