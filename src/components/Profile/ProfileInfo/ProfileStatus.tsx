@@ -8,14 +8,14 @@ type ProfileStatusPropsType = {
 export const ProfileStatus = (props: ProfileStatusPropsType) => {
 
     const [editMode, setEditMode] = useState(false)
-    const [localState, setLocalState] = useState(props.status)
+    const [localStatus, setLocalStatus] = useState(props.status)
     const updateStatus = () => {
         setEditMode(false)
-        props.updateStatus(localState)
+        props.updateStatus(localStatus)
     }
 
     const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setLocalState(e.currentTarget.value)
+        setLocalStatus(e.currentTarget.value)
     }
 
     return (
@@ -29,7 +29,7 @@ export const ProfileStatus = (props: ProfileStatusPropsType) => {
             }
             {editMode &&
                 <div>
-                    <input onChange={onStatusChange} autoFocus={true} onBlur={updateStatus} value={localState}/>
+                    <input onChange={onStatusChange} autoFocus={true} onBlur={updateStatus} value={localStatus}/>
                 </div>
             }
         </div>
