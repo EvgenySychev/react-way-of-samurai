@@ -8,7 +8,7 @@ type FormikErrorType = {
     newPostText?: string
 }
 
-const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts = React.memo((props: MyPostsPropsType) => {
 
     const formik = useFormik({
         initialValues: {
@@ -54,6 +54,4 @@ const MyPosts = (props: MyPostsPropsType) => {
             </div>
         </div>
     )
-}
-
-export default MyPosts;
+})
