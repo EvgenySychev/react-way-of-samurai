@@ -28,7 +28,7 @@ export const MyPosts = React.memo((props: MyPostsPropsType) => {
         }
     })
 
-    let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
+    let postsElements = [...props.posts].reverse().map(p => <Post message={p.message} likesCount={p.likesCount}/>)
 
     return (
         <div className={s.postsBlock}>
@@ -46,7 +46,7 @@ export const MyPosts = React.memo((props: MyPostsPropsType) => {
                         <div style={{color: 'indianred'}}>{formik.errors.newPostText}</div> : null}
                 </div>
                 <div>
-                    <button>Add post</button>
+                    <button type={"submit"}>Add post</button>
                 </div>
             </form>
             <div className={s.posts}>
