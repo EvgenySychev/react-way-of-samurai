@@ -24,62 +24,54 @@ const initialState = {
 const authReducer = (state = initialState, action: authReducerActionType): InitialStateType => {
 
     switch (action.type) {
-        case "SET_USER_DATA" :
+        case "auth/SET_USER_DATA" :
             return {
                 ...state,
                 ...action.data
             }
-        case "SET_IS_LOGGED_IN" :
+        case "auth/SET_IS_LOGGED_IN" :
             return {
                 ...state,
-                isAuth:action.isAuth
+                isAuth: action.isAuth
             }
         default:
             return state
     }
 }
 
-export const setAuthUserData = (usersId: number, email: string, login: string, isAuth:boolean) => (
-    {type: 'SET_USER_DATA', data: {usersId, email, login, isAuth}} as const
+export const setAuthUserData = (usersId: number, email: string, login: string, isAuth: boolean) => (
+    {type: 'auth/SET_USER_DATA', data: {usersId, email, login, isAuth}} as const
 )
 
-export const setIsLoggedInAC = (isAuth:boolean) => (
-    {type: 'SET_IS_LOGGED_IN',isAuth:isAuth} as const
+export const setIsLoggedInAC = (isAuth: boolean) => (
+    {type: 'auth/SET_IS_LOGGED_IN', isAuth: isAuth} as const
 )
 
 
-export const getAuthUserData = () => (dispatch: Dispatch) => {
-    authAPI.me()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                let {id, login, email} = response.data.data
-                dispatch(setAuthUserData(id, email, login, true))
-            }
-        })
-        .then(()=>{
-            dispatch(setinitializedSuccess())
-        })
+export const getAuthUserData = () => async (dispatch: Dispatch) => {
+    let response = await authAPI.me()
+    if (response.data.resultCode === 0) {
+        let {id, login, email} = response.data.data
+        dispatch(setAuthUserData(id, email, login, true))
+    }
+    dispatch(setinitializedSuccess())
 }
 
-export const loginTC = ({email, password, rememberMe}:LoginParamsType) => (dispatch: Dispatch) => {
-    authAPI.login({email, password, rememberMe})
-        .then((response => {
-            if (response.data.resultCode === 0) {
-                // @ts-ignore
-                dispatch(getAuthUserData())
-            } else if (response.data.messages.length) {
-                alert(response.data.messages[0])
-            } else alert("some error")
-        }))
+export const loginTC = ({email, password, rememberMe}: LoginParamsType) => async (dispatch: Dispatch) => {
+    let response = await authAPI.login({email, password, rememberMe})
+    if (response.data.resultCode === 0) {
+        // @ts-ignore
+        dispatch(getAuthUserData())
+    } else if (response.data.messages.length) {
+        alert(response.data.messages[0])
+    } else alert("some error")
 }
 
-export const logoutTC = () => (dispatch: Dispatch) => {
-    authAPI.logout()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setAuthUserData(0, '', '', false))
-            }
-        })
+export const logoutTC = () => async (dispatch: Dispatch) => {
+    let response = await authAPI.logout()
+    if (response.data.resultCode === 0) {
+        dispatch(setAuthUserData(0, '', '', false))
+    }
 }
 
 export default authReducer;

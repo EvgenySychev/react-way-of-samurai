@@ -48,6 +48,17 @@ export const Login = () => {
     return (
         <div>
             <h1>LOGIN</h1>
+            <div>
+                <p>To log in get registered
+                    <a href={'https://social-network.samuraijs.com/'}
+                       target={'_blank'}> here
+                    </a>
+                </p>
+                <p>or use common test account credentials:</p>
+                <p>Email: samara808@yandex.ru</p>
+                <p>Password: 123456789</p>
+            </div>
+
             <form onSubmit={formik.handleSubmit}>
                 <div style={{height: '50px'}}>
                     <input placeholder={"Email"} {...formik.getFieldProps("email")}/>
