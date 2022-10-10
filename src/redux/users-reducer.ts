@@ -46,7 +46,7 @@ export type ActionUsersReducerTypes =
 
 const initialState: InitialStateType = {
     users: [],
-    pageSize: 5,
+    pageSize: 20,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,

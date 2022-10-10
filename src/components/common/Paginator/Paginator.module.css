@@ -1,4 +1,19 @@
-.selectedPage {
+.paginator {
+    width: 700px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.pageNumber {
+    width: 25px;
+    height: 25px;
+    padding: 2px;
+    border: 1px solid grey;
+    text-align: center;
+}
+
+.pageNumber .selectedPage {
     font-weight: bold;
-    color: darkred;
+    color: black;
 }

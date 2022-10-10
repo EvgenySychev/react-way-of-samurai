@@ -2,13 +2,19 @@
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 import {MyPostContainer} from "./MyPosts/MyPostsContainer";
-import {ProfileContainerPropsType} from "./ProfileContainer";
+import {ProfileType} from "../../redux/profile-reducer";
 
-const Profile = (props: ProfileContainerPropsType) => {
+export type ProfilePropsType = {
+    profile: ProfileType
+    status:string
+    updateStatus: ()=> void
+}
+
+const Profile = ({profile, status,updateStatus}: ProfilePropsType) => {
 
     return (
     <div>
-        <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+        <ProfileInfo profile={profile} status={status} updateStatus={updateStatus}/>
         <MyPostContainer/>
     </div>
     )
