@@ -1,12 +1,27 @@
 .paginator {
-    width: 700px;
     margin: 10px;
     display: flex;
     justify-content: center;
 }
 
+.btnblock {
+    width: 70px;
+    height:25px ;
+}
+.prevbtn {
+    width: 55px;
+    height:31px ;
+}
+
+.nextbtn {
+    width: 55px;
+    height:31px ;
+    margin-left: 20px;
+}
+
 .pageNumber {
-    width: 25px;
+    display: inline-block;
+    width: 30px;
     height: 25px;
     padding: 2px;
     border: 1px solid grey;
