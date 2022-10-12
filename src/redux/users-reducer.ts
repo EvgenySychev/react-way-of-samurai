@@ -18,14 +18,6 @@ export type PhotoAPIType = {
     small: string
     large: string
 }
-export type InitialStateType = {
-    users: Array<UserType>
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean
-    followingInProgress: Array<number>
-}
 export type FollowACType = ReturnType<typeof followSucces>
 export type UnfollowACType = ReturnType<typeof unfollowSucces>
 export type SetUsersACType = ReturnType<typeof setUsers>
@@ -33,7 +25,6 @@ export type setCurrentPageACType = ReturnType<typeof setCurrentPage>
 export type setUsersTotalCountACType = ReturnType<typeof setTotalUsersCount>
 export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
 export type toggleFollowingProgressType = ReturnType<typeof toggleFollowingProgress>
-
 export type ActionUsersReducerTypes =
     FollowACType
     | UnfollowACType
@@ -42,7 +33,14 @@ export type ActionUsersReducerTypes =
     | setUsersTotalCountACType
     | toggleIsFetchingACType
     | toggleFollowingProgressType
-
+export type InitialStateType = {
+    users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
+    followingInProgress: Array<number>
+}
 
 const initialState: InitialStateType = {
     users: [],
