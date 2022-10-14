@@ -38,6 +38,15 @@ export const profileAPI = {
     },
     updateStatus(status: string) {
         return instance.put<any>(`profile/status/`, {status: status}) //проверить типизацию
+    },
+    savePhoto(photoFile:string | Blob) {
+        const formData = new FormData()
+        formData.append('image', photoFile)
+        return instance.put<any>(`profile/photo`, photoFile, {
+            headers: {
+               'Content-Type': 'multipart/form-data'
+            }
+        })
     }
 }
 

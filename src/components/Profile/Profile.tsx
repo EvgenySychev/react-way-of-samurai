@@ -8,13 +8,20 @@ export type ProfilePropsType = {
     profile: ProfileType
     status:string
     updateStatus: ()=> void
+    isOwner: boolean
+    savePhoto:(e:string | Blob) => void
 }
 
-const Profile = ({profile, status,updateStatus}: ProfilePropsType) => {
+const Profile = ({profile, status,updateStatus, isOwner, savePhoto}: ProfilePropsType) => {
 
     return (
     <div>
-        <ProfileInfo profile={profile} status={status} updateStatus={updateStatus}/>
+        <ProfileInfo
+            isOwner={isOwner}
+            profile={profile}
+            status={status}
+            updateStatus={updateStatus}
+            savePhoto={savePhoto}/>
         <MyPostContainer/>
     </div>
     )
