@@ -58,7 +58,7 @@ let initialState: ProfilePageType = {
 const profileReducer = (state = initialState, action: ActionProfileReducersTypes): ProfilePageType => {
 
     switch (action.type) {
-        case "ADD-POST": {
+        case "profile/ADD-POST": {
             let newPost: postDataType = {
                 id: new Date().getTime(),
                 message: action.newPostText,
@@ -70,23 +70,23 @@ const profileReducer = (state = initialState, action: ActionProfileReducersTypes
                 newPostText: ''
             }
         }
-        case 'SET_USER_PROFILE': {
+        case 'profile/SET_USER_PROFILE': {
             return {
                 ...state,
                 profile: action.profile
             }
         }
-        case "SET-STATUS": {
-            return { ...state, status: action.status}
+        case "profile/SET-STATUS": {
+            return {...state, status: action.status}
         }
 
-case "DELETE-POST": {
-    return {...state, post: state.post.filter(p => p.id !== action.postId)}
-}
+        case "profile/DELETE-POST": {
+            return {...state, post: state.post.filter(p => p.id !== action.postId)}
+        }
 
-case "SAVE-PHOTO-SUCCESS": {
-    return {...state, profile: {...state.profile, photos: action.photos}}
-}
+        case "profile/SAVE-PHOTO-SUCCESS": {
+            return {...state, profile: {...state.profile, photos: action.photos}}
+        }
 
         default:
             return state
@@ -94,48 +94,48 @@ case "SAVE-PHOTO-SUCCESS": {
 
 }
 
-export const addPostActionCreator = (newPostText:string) => {
-    return {type: 'ADD-POST',newPostText} as const
+export const addPostActionCreator = (newPostText: string) => {
+    return {type: 'profile/ADD-POST', newPostText} as const
 }
 
 export const setUserProfile = (profile: ProfileType) => {
-    return {type: 'SET_USER_PROFILE', profile} as const
+    return {type: 'profile/SET_USER_PROFILE', profile} as const
 }
 
 export const setStatus = (status: string) => {
-    return {type:'SET-STATUS',status:status} as const
+    return {type: 'profile/SET-STATUS', status: status} as const
 }
 
 export const deletePost = (postId: number) => {
-    return {type:'DELETE-POST',postId} as const
+    return {type: 'profile/DELETE-POST', postId} as const
 }
 
 export const savePhotoSuccess = (photos: any) => {
-    return {type:'SAVE-PHOTO-SUCCESS',photos} as const
+    return {type: 'profile/SAVE-PHOTO-SUCCESS', photos} as const
 }
 
 export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
     let response = await usersAPI.getProfile(userId)
-            dispatch(setUserProfile(response.data))
+    dispatch(setUserProfile(response.data))
 }
 
-export const getStatus = (userId:number) => async (dispatch: Dispatch) => {
+export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
     let response = await profileAPI.getStatus(userId)
-            dispatch(setStatus(response.data))
+    dispatch(setStatus(response.data))
 }
 
-export const updateStatus = (status:string) => async (dispatch: Dispatch) => {
+export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
     let response = await profileAPI.updateStatus(status)
-            if (response.data.resultCode === 0) {
-                dispatch(setStatus(status))
-            }
+    if (response.data.resultCode === 0) {
+        dispatch(setStatus(status))
+    }
 }
 
-export const savePhoto = (file:string | Blob) => async (dispatch: Dispatch) => {
+export const savePhoto = (file: string | Blob) => async (dispatch: Dispatch) => {
     let response = await profileAPI.savePhoto(file)
-            if (response.data.resultCode === 0) {
-                dispatch(savePhotoSuccess(response.data.data.photos))
-            }
+    if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.data.photos))
+    }
 }
 
 export default profileReducer;
