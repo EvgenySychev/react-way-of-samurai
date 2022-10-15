@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {profileAPI, usersAPI} from "../api/api";
+import {profileAPI, upDateProfileType, usersAPI} from "../api/api";
 
 export type ProfilePageType = {
     post: Array<postDataType>
@@ -9,7 +9,7 @@ export type ProfilePageType = {
 }
 export type ProfileType = {
     userId: number
-    lookingForAJob: false
+    lookingForAJob: boolean
     lookingForAJobDescription: string
     aboutMe: string
     fullName: string
@@ -38,12 +38,14 @@ export type setUserProfile = ReturnType<typeof setUserProfile>
 export type setStatusActionType = ReturnType<typeof setStatus>
 export type deletePostActionType = ReturnType<typeof deletePost>
 export type savePhotoSuccessActionType = ReturnType<typeof savePhotoSuccess>
+export type upDateProfileSuccessActionType = ReturnType<typeof upDateProfileSuccess>
 
 export type ActionProfileReducersTypes = AddPostActionType
     | setUserProfile
     | setStatusActionType
     | deletePostActionType
     | savePhotoSuccessActionType
+    | upDateProfileSuccessActionType
 
 let initialState: ProfilePageType = {
     post: [
@@ -52,7 +54,27 @@ let initialState: ProfilePageType = {
     ],
     newPostText: 'it-kamasutra',
     status: 'add yours status',
-    profile: {} as ProfileType,
+    profile: {
+        userId: 0,
+        lookingForAJob: false,
+        lookingForAJobDescription: '',
+        aboutMe: '',
+        fullName: '',
+        contacts: {
+            github: '',
+            vk: '',
+            facebook: '',
+            instagram: '',
+            twitter: '',
+            website: '',
+            youtube: '',
+            mainLink: ''
+        },
+        photos: {
+            small: '',
+            large: ''
+        }
+    }
 }
 
 const profileReducer = (state = initialState, action: ActionProfileReducersTypes): ProfilePageType => {
@@ -88,6 +110,19 @@ const profileReducer = (state = initialState, action: ActionProfileReducersTypes
             return {...state, profile: {...state.profile, photos: action.photos}}
         }
 
+        case "profile/UPDATE-PROFILE-SUCCESS": {
+            return {
+                ...state,
+                profile: {
+                    ...state.profile,
+                    contacts: {...action.profile.contacts},
+                    lookingForAJob: action.profile.lookingForAJob,
+                    lookingForAJobDescription: action.profile.lookingForAJobDescription,
+                    aboutMe: action.profile.aboutMe,
+                    fullName: action.profile.fullName
+                }
+            }
+        }
         default:
             return state
     }
@@ -114,6 +149,10 @@ export const savePhotoSuccess = (photos: any) => {
     return {type: 'profile/SAVE-PHOTO-SUCCESS', photos} as const
 }
 
+export const upDateProfileSuccess = (data: upDateProfileType) => {
+    return {type: 'profile/UPDATE-PROFILE-SUCCESS', profile: {...data, contacts: data.contacts}} as const
+}
+
 export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
     let response = await usersAPI.getProfile(userId)
     dispatch(setUserProfile(response.data))
@@ -135,6 +174,15 @@ export const savePhoto = (file: string | Blob) => async (dispatch: Dispatch) => 
     let response = await profileAPI.savePhoto(file)
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.data.photos))
+    }
+}
+
+export const upDateProfile = (data: upDateProfileType) => async (dispatch: Dispatch, getState:any) => {
+    const userId = getState().auth.autorizedUserId
+    const response = await profileAPI.upDateProfile(data)
+    if (response.data.resultCode === 0) {
+        // @ts-ignore
+        dispatch(getUserProfile(userId))
     }
 }
 

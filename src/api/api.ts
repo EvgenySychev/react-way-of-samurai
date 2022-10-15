@@ -39,14 +39,17 @@ export const profileAPI = {
     updateStatus(status: string) {
         return instance.put<any>(`profile/status/`, {status: status}) //проверить типизацию
     },
-    savePhoto(photoFile:string | Blob) {
+    savePhoto(photoFile: string | Blob) {
         const formData = new FormData()
         formData.append('image', photoFile)
         return instance.put<any>(`profile/photo`, photoFile, {
             headers: {
-               'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data'
             }
         })
+    },
+    upDateProfile(data: upDateProfileType) {
+        return instance.put<any>('profile', data)
     }
 }
 
@@ -54,8 +57,8 @@ export const authAPI = {
     me() {
         return instance.get(`auth/me`)
     },
-    login(data:LoginParamsType) {
-        return instance.post<LoginParamsType,AxiosResponse<ResponseType<{ userId: number }>>>('auth/login', data)
+    login(data: LoginParamsType) {
+        return instance.post<LoginParamsType, AxiosResponse<ResponseType<{ userId: number }>>>('auth/login', data)
     },
     logout() {
         return instance.delete(`auth/login`)
@@ -73,4 +76,21 @@ export type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
     data: D
+}
+
+export type upDateProfileType = {
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    aboutMe: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
 }
