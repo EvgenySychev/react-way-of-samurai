@@ -1,10 +1,14 @@
 import {Dispatch} from "redux";
-import {authAPI, LoginParamsType} from "../api/api";
+import {authAPI, LoginParamsType, securityAPI} from "../api/api";
 import {setinitializedSuccess} from "./app-reducer";
 
-type authReducerActionType = setAuthUserDataActionType | setIsLoggedInACActionType
 type setAuthUserDataActionType = ReturnType<typeof setAuthUserData>
 type setIsLoggedInACActionType = ReturnType<typeof setIsLoggedInAC>
+type getCaptchaUrlSuccessActionType = ReturnType<typeof getCaptchaUrlSuccess>
+type authReducerActionType =
+    setAuthUserDataActionType
+    | setIsLoggedInACActionType
+    | getCaptchaUrlSuccessActionType
 export type InitialStateType = {
     userId: number,
     email: string,
@@ -12,6 +16,7 @@ export type InitialStateType = {
     isFetching: boolean,
     isAuth: boolean
     autorizedUserId: number
+    captchaUrl: string
 }
 
 const initialState = {
@@ -20,7 +25,8 @@ const initialState = {
     login: '',
     isFetching: true,
     isAuth: false,
-    autorizedUserId: 0
+    autorizedUserId: 0,
+    captchaUrl: ''
 }
 
 const authReducer = (state = initialState, action: authReducerActionType): InitialStateType => {
@@ -37,6 +43,11 @@ const authReducer = (state = initialState, action: authReducerActionType): Initi
                 ...state,
                 isAuth: action.isAuth
             }
+        case "auth/GET_CAPTCHA_URL_SUCCESS":
+            return {
+                ...state,
+                captchaUrl: action.captchaUrl
+            }
         default:
             return state
     }
@@ -47,12 +58,16 @@ export const setAuthUserData = (usersId: number, email: string, login: string, i
 )
 
 export const setIsLoggedInAC = (isAuth: boolean) => (
-    {type: 'auth/SET_IS_LOGGED_IN', isAuth: isAuth} as const
+    {type: 'auth/SET_IS_LOGGED_IN', isAuth} as const
+)
+
+export const getCaptchaUrlSuccess = (captchaUrl: string) => (
+    {type: 'auth/GET_CAPTCHA_URL_SUCCESS', captchaUrl} as const
 )
 
 
 export const getAuthUserData = () => async (dispatch: Dispatch) => {
-    let response = await authAPI.me()
+    const response = await authAPI.me()
     if (response.data.resultCode === 0) {
         let {id, login, email} = response.data.data
         dispatch(setAuthUserData(id, email, login, true))
@@ -60,21 +75,35 @@ export const getAuthUserData = () => async (dispatch: Dispatch) => {
     dispatch(setinitializedSuccess())
 }
 
-export const loginTC = ({email, password, rememberMe}: LoginParamsType) => async (dispatch: Dispatch) => {
-    let response = await authAPI.login({email, password, rememberMe})
+export const loginTC = ({
+                            email,
+                            password,
+                            rememberMe,
+                            captcha
+                        }: LoginParamsType) => async (dispatch: Dispatch) => {
+    const response = await authAPI.login({email, password, rememberMe, captcha})
     if (response.data.resultCode === 0) {
         // @ts-ignore
         dispatch(getAuthUserData())
+    } else if (response.data.resultCode === 10) {
+        // @ts-ignore
+        dispatch(getCaptchaUrl())
     } else if (response.data.messages.length) {
         alert(response.data.messages[0])
     } else alert("some error")
 }
 
 export const logoutTC = () => async (dispatch: Dispatch) => {
-    let response = await authAPI.logout()
+    const response = await authAPI.logout()
     if (response.data.resultCode === 0) {
         dispatch(setAuthUserData(0, '', '', false))
     }
+}
+
+export const getCaptchaUrl = () => async (dispatch: Dispatch) => {
+    const response = await securityAPI.getCaptchaUrl()
+    const captchaUrl = response.data.url
+    dispatch(getCaptchaUrlSuccess(captchaUrl))
 }
 
 export default authReducer;

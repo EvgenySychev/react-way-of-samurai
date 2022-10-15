@@ -9,17 +9,20 @@ type FormikErrorType = {
     email?: string
     password?: string
     rememberMe?: boolean
+    captcha?: string
 }
 
 export const Login = () => {
 
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
+    const captchaUrl = useSelector<AppStateType, string>(state => state.auth.captchaUrl)
     const dispatch = useDispatch()
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
-            rememberMe: false
+            rememberMe: false,
+            captcha: ''
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -63,12 +66,15 @@ export const Login = () => {
                 <div style={{height: '50px'}}>
                     <input placeholder={"Email"} {...formik.getFieldProps("email")}/>
                     {formik.touched.email && formik.errors.email ?
-                        <div style={{color: 'indianred'}}>{formik.errors.email}</div> : null}
+                        <div
+                            style={{color: 'indianred'}}>{formik.errors.email}</div> : null}
                 </div>
                 <div style={{height: '50px'}}>
-                    <input type={"password"} placeholder={"Password"} {...formik.getFieldProps("password")}/>
+                    <input type={"password"}
+                           placeholder={"Password"} {...formik.getFieldProps("password")}/>
                     {formik.touched.password && formik.errors.password ?
-                        <div style={{color: 'indianred'}}>{formik.errors.password}</div> : null}
+                        <div
+                            style={{color: 'indianred'}}>{formik.errors.password}</div> : null}
                 </div>
                 <div style={{height: '50px'}}>
                     <input type="checkbox" onChange={formik.handleChange}
@@ -76,6 +82,12 @@ export const Login = () => {
                            name="rememberMe"
                     /> remember me
                 </div>
+
+                {captchaUrl && <img src={captchaUrl}/>}
+                {captchaUrl && <input type={"text"}
+                                      placeholder={"Add symbols from image"}
+                                      {...formik.getFieldProps("captcha")}/>
+                }
                 <div>
                     <button type="submit">Login</button>
                 </div>
