@@ -5,10 +5,17 @@ import {ProfilePropsType} from "../Profile";
 import userPhoto from "../../../assets/images/user.png";
 import {ChangeEvent, useState} from "react";
 import {ProfileDataForm} from "./ProfileDataForm";
+import {ProfileType} from "../../../redux/profile-reducer";
 
 type ContactPropsType = {
     contactTitle: string
     contactValue: string
+}
+
+type ProfileDataPropsType = {
+    profile: ProfileType
+    isOwner: boolean
+    goToEditMode: ()=>void
 }
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto}: ProfilePropsType) => {
@@ -45,7 +52,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto}: Profil
     )
 }
 
-const ProfileData = ({profile, isOwner, goToEditMode}: any) => {
+const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataPropsType) => {
     return <div>
         <div>
             {profile.fullName}
@@ -59,11 +66,12 @@ const ProfileData = ({profile, isOwner, goToEditMode}: any) => {
         <div>
             {profile.lookingForAJob &&
                 <div>
-                    <b>My skills and technologies</b> {profile.lookingForAJobDescription}
+                    <b>My skills and technologies</b>: {profile.lookingForAJobDescription}
                 </div>}
         </div>
         <div>
             <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
+            // @ts-ignore
             return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}
             />
         })}
