@@ -25,31 +25,28 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto}: Profil
         }
     }
 
-    const setEditModeCallBack = (editModeDataForm:boolean) => {
+    const setEditModeCallBack = (editModeDataForm: boolean) => {
         setEditMode(editModeDataForm)
     }
 
     return (
         <div className={s.descriptionBlock}>
             <img src={profile.photos?.small || userPhoto}/>
+            {isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
             <ProfileStatus status={status} updateStatus={updateStatus}/>
             {editMode
                 ? <ProfileDataForm
-                    profile = {profile}
+                    profile={profile}
                     setEditModeCallBack={setEditModeCallBack}/>
                 : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => {
-                setEditMode(true)
-            }}/>}
-            {isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
+                    setEditMode(true)
+                }}/>}
         </div>
     )
 }
 
 const ProfileData = ({profile, isOwner, goToEditMode}: any) => {
     return <div>
-        {isOwner && <div>
-            <button onClick={goToEditMode}>edit</button>
-        </div>}
         <div>
             {profile.fullName}
         </div>
@@ -71,6 +68,9 @@ const ProfileData = ({profile, isOwner, goToEditMode}: any) => {
             />
         })}
         </div>
+        {isOwner && <div>
+            <button onClick={goToEditMode}>edit</button>
+        </div>}
     </div>
 }
 

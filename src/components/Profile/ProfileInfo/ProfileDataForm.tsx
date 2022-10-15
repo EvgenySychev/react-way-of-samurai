@@ -5,11 +5,17 @@ import {upDateProfile} from "../../../redux/profile-reducer";
 import {upDateProfileType} from "../../../api/api";
 
 type ProfileDataFormPropsType = {
-    setEditModeCallBack: (editModeDataForm:boolean)=> void
+    setEditModeCallBack: (editModeDataForm: boolean) => void
     profile: upDateProfileType
 }
 
-export const ProfileDataForm = ({setEditModeCallBack,profile}: ProfileDataFormPropsType) => {
+type FormikErrorType = {
+    fullName?: string
+    lookingForAJob?: boolean
+    aboutMe?: string
+}
+
+export const ProfileDataForm = ({setEditModeCallBack, profile}: ProfileDataFormPropsType) => {
 
     const dispatch = useDispatch()
 
@@ -30,20 +36,23 @@ export const ProfileDataForm = ({setEditModeCallBack,profile}: ProfileDataFormPr
                 mainLink: profile.contacts.mainLink
             }
         },
-        // validate: (values) => {
-        //     const errors: FormikErrorType = {};
-        //     if (!values.email) {
-        //         errors.email = 'Required';
-        //     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        //         errors.email = 'Invalid email address';
-        //     }
-        //     if (!values.password) {
-        //         errors.password = 'Required';
-        //     } else if (values.password.length < 5) {
-        //         errors.password = 'Invalid password, should be >5 and <16';
-        //     }
-        //     return errors;
-        // },
+        validate: (values) => {
+            const errors: FormikErrorType = {};
+            if (!values.fullName) {
+                errors.fullName = 'Required';
+
+            } else if (values.fullName.length < 3) {
+                errors.fullName = 'Should be >2 symbols';
+                // } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                //     errors.email = 'Invalid email address';
+            }
+            if (!values.aboutMe) {
+                errors.aboutMe = 'Required';
+            } else if (values.aboutMe.length < 4) {
+                errors.aboutMe = 'Should be >5 symbols';
+            }
+            return errors;
+        },
         onSubmit: values => {
             formik.resetForm()
             console.log(values)
@@ -53,43 +62,36 @@ export const ProfileDataForm = ({setEditModeCallBack,profile}: ProfileDataFormPr
     })
 
     return <form onSubmit={formik.handleSubmit}>
-
-        <div>
-
-            <button type="submit">save</button>
-        </div>
-        <div>
+        <div style={{height: '50px'}}>
             <b>Full name</b>:
             <input type={"text"} placeholder={"Full name"} {...formik.getFieldProps("fullName")} />
+            {formik.touched.fullName && formik.errors.fullName ?
+                <div style={{color: 'indianred'}}>{formik.errors.fullName}</div> : null}
         </div>
-        <div>
+        <div >
             <b>Looking for a job</b>:
-            <input type={"checkbox"} placeholder={"Looking for a job"} {...formik.getFieldProps("lookingForAJob")} />
+            <input type={"checkbox"} {...formik.getFieldProps("lookingForAJob")} />
         </div>
         <div>
             <b>My skills and technologies</b>
-            <input type={"text"}
-                   placeholder={"lookingForAJobDescription"} {...formik.getFieldProps("lookingForAJobDescription")} />
+            <textarea
+                placeholder={">My skills and technologies"} {...formik.getFieldProps("lookingForAJobDescription")} />
         </div>
-        <div>
+        <div style={{height: '50px'}}>
             <b>About me</b>:
-            <input type={"text"} placeholder={"aboutMe"} {...formik.getFieldProps("aboutMe")} />
+            <textarea placeholder={"About me"} {...formik.getFieldProps("aboutMe")} />
+            {formik.touched.aboutMe && formik.errors.aboutMe ?
+                <div style={{color: 'indianred'}}>{formik.errors.aboutMe}</div> : null}
+        </div>
+        <div style={{paddingTop:'10px'}}>
+            <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {
+            return <div>
+                <input type="text" placeholder={key} {...formik.getFieldProps('contacts.' + key)}/>
+            </div>
+        })}
         </div>
         <div>
-            <b>Vk</b>:
-            <input type={"text"} placeholder={"My VK account"} {...formik.getFieldProps("vk")} />
+            <button type="submit">save</button>
         </div>
-
-        {/*<div>*/}
-        {/*    <b>My github</b>:*/}
-        {/*    <input type={"text"} placeholder={"github"} {...formik.getFieldProps("contacts.github")} />*/}
-        {/* </div>*/}
-
-        {/*<div>*/}
-        {/*    <b>Contacts</b>: {Object.keys(profile.contacts).map(key => {*/}
-        {/*    return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}*/}
-        {/*    />*/}
-        {/*})}*/}
-        {/*</div>*/}
     </form>
 }
