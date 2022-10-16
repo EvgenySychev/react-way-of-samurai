@@ -157,26 +157,35 @@ export const upDateProfileSuccess = (data: upDateProfileType) => {
 }
 
 export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
-    let response = await usersAPI.getProfile(userId)
+    const response = await usersAPI.getProfile(userId)
     dispatch(setUserProfile(response.data))
 }
 
 export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
-    let response = await profileAPI.getStatus(userId)
+    const response = await profileAPI.getStatus(userId)
     dispatch(setStatus(response.data))
 }
 
 export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
-    let response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
-        dispatch(setStatus(status))
+    try{
+        const response = await profileAPI.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
+    } catch (error) {
+        alert(error)
     }
 }
 
 export const savePhoto = (file: string | Blob) => async (dispatch: Dispatch) => {
-    let response = await profileAPI.savePhoto(file)
-    if (response.data.resultCode === 0) {
-        dispatch(savePhotoSuccess(response.data.data.photos))
+    try {
+        const response = await profileAPI.savePhoto(file)
+        if (response.data.resultCode === 0) {
+            dispatch(savePhotoSuccess(response.data.data.photos))
+        }
+    }
+    catch (error) {
+        alert(error)
     }
 }
 

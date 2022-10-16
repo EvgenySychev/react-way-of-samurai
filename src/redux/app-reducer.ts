@@ -1,5 +1,5 @@
 type authReducerActionType = setAuthUserDataActionType
-type setAuthUserDataActionType = ReturnType<typeof setinitializedSuccess>
+type setAuthUserDataActionType = ReturnType<typeof setInitializedSuccess>
 export type InitialStateType = {
     initialized: boolean,
 }
@@ -21,7 +21,7 @@ export const appReducer = (state = initialState, action: authReducerActionType):
     }
 }
 
-export const setinitializedSuccess = () => (
+export const setInitializedSuccess = () => (
     {type: 'app/INITIALIZED_SUCCESS'} as const
 )
 

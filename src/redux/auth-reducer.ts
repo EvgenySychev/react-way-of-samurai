@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {authAPI, LoginParamsType, securityAPI} from "../api/api";
-import {setinitializedSuccess} from "./app-reducer";
+import {setInitializedSuccess} from "./app-reducer";
 
 type setAuthUserDataActionType = ReturnType<typeof setAuthUserData>
 type setIsLoggedInACActionType = ReturnType<typeof setIsLoggedInAC>
@@ -67,12 +67,17 @@ export const getCaptchaUrlSuccess = (captchaUrl: string) => (
 
 
 export const getAuthUserData = () => async (dispatch: Dispatch) => {
-    const response = await authAPI.me()
-    if (response.data.resultCode === 0) {
-        let {id, login, email} = response.data.data
-        dispatch(setAuthUserData(id, email, login, true))
+    try {
+        const response = await authAPI.me()
+        if (response.data.resultCode === 0) {
+            let {id, login, email} = response.data.data
+            dispatch(setAuthUserData(id, email, login, true))
+        }
+        dispatch(setInitializedSuccess())
     }
-    dispatch(setinitializedSuccess())
+    catch (error) {
+        alert(error)
+    }
 }
 
 export const loginTC = ({

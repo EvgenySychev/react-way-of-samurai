@@ -19,12 +19,20 @@ const Settings = React.lazy(() => import('./components/Settings/Settings'));
 
 const App = () => {
 
-    const initialized = useSelector<AppStateType,boolean>(state => state.app.initialized)
+    const initialized = useSelector<AppStateType, boolean>(state => state.app.initialized)
 
     const dispatch = useDispatch();
 
+    const catchAllUnhandleErrors = (promiseRejectionEvent: any) => {
+        alert("Some error occured")
+    }
+
     useEffect(() => {
         dispatch(getAuthUserData())
+        window.addEventListener("unhandledrejection", catchAllUnhandleErrors)
+        return () => {
+            window.removeEventListener("unhandledrejection", catchAllUnhandleErrors)
+        }
     }, [])
 
     if (!initialized) {
