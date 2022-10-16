@@ -18,7 +18,7 @@ const Settings = React.lazy(() => import('./components/Settings/Settings'));
 
 const App = () => {
 
-    const initialized = useSelector<AppStateType>(state => state.app.initialized)
+    const initialized = useSelector<AppStateType,boolean>(state => state.app.initialized)
 
     const dispatch = useDispatch();
 
