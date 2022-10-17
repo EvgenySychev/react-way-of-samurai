@@ -86,29 +86,44 @@ export const loginTC = ({
                             rememberMe,
                             captcha
                         }: LoginParamsType) => async (dispatch: Dispatch) => {
-    const response = await authAPI.login({email, password, rememberMe, captcha})
-    if (response.data.resultCode === 0) {
-        // @ts-ignore
-        dispatch(getAuthUserData())
-    } else if (response.data.resultCode === 10) {
-        // @ts-ignore
-        dispatch(getCaptchaUrl())
-    } else if (response.data.messages.length) {
-        alert(response.data.messages[0])
-    } else alert("some error")
+    try {
+        const response = await authAPI.login({email, password, rememberMe, captcha})
+        if (response.data.resultCode === 0) {
+            // @ts-ignore
+            dispatch(getAuthUserData())
+        } else if (response.data.resultCode === 10) {
+            // @ts-ignore
+            dispatch(getCaptchaUrl())
+        } else if (response.data.messages.length) {
+            alert(response.data.messages[0])
+        } else alert("some error")
+    }
+    catch (error) {
+        alert(error)
+    }
 }
 
 export const logoutTC = () => async (dispatch: Dispatch) => {
-    const response = await authAPI.logout()
-    if (response.data.resultCode === 0) {
-        dispatch(setAuthUserData(0, '', '', false))
+    try {
+        const response = await authAPI.logout()
+        if (response.data.resultCode === 0) {
+            dispatch(setAuthUserData(0, '', '', false))
+        }
+    }
+    catch (error) {
+        alert(error)
     }
 }
 
 export const getCaptchaUrl = () => async (dispatch: Dispatch) => {
-    const response = await securityAPI.getCaptchaUrl()
-    const captchaUrl = response.data.url
-    dispatch(getCaptchaUrlSuccess(captchaUrl))
+    try {
+        const response = await securityAPI.getCaptchaUrl()
+        const captchaUrl = response.data.url
+        dispatch(getCaptchaUrlSuccess(captchaUrl))
+    }
+    catch (error) {
+        alert(error)
+    }
 }
 
 export default authReducer;

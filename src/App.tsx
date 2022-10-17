@@ -52,8 +52,8 @@ const App = () => {
                     <Route path='/news/*' element={<News/>}/>
                     <Route path='/music/*' element={<Music/>}/>
                     <Route path='/settings/*' element={<Settings/>}/>
-                    <Route path='/users/*' element={<UsersContainerWrapper/>}/>
                     <Route path='/login/*' element={<Login/>}/>
+                    <Route path='/users/*' element={<UsersContainerWrapper/>}/>
                     <Route path='*' element={<ProfileContainerWrapper/>}/>
                 </Routes>
             </React.Suspense>
