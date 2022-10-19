@@ -4,6 +4,7 @@ import {useFormik} from "formik";
 import {AppStateType} from "../../redux/redux-store";
 import {Navigate} from 'react-router-dom'
 import {loginTC} from "../../redux/auth-reducer";
+import style from "./Login.module.css"
 
 type FormikErrorType = {
     email?: string
@@ -49,49 +50,52 @@ export const Login = () => {
     }
 
     return (
-        <div>
-            <h1>LOGIN</h1>
-            <div>
-                <p>To log in get registered
-                    <a href={'https://social-network.samuraijs.com/'}
-                       target={'_blank'}> here
-                    </a>
-                </p>
-                <p>or use common test account credentials:</p>
-                <p>Email: samara808@yandex.ru</p>
-                <p>Password: 123456789</p>
+        <div className={style.loginWrapper}>
+            <div className={style.loginBlock}>
+                <h1>LOGIN</h1>
+                <div className={style.loginDescription}>
+                    <p>To log in get registered
+                        <a href={'https://social-network.samuraijs.com/'}
+                           target={'_blank'}> here
+                        </a>
+                    </p>
+                    <p>or use common test account credentials:</p>
+                    <p>Email: samara808@yandex.ru</p>
+                    <p>Password: 123456789</p>
+                </div>
+
+                <form className={style.loginForm} onSubmit={formik.handleSubmit}>
+                    <div style={{height: '50px'}}>
+                        <input placeholder={"Email"} {...formik.getFieldProps("email")}/>
+                        {formik.touched.email && formik.errors.email ?
+                            <div
+                                style={{color: 'indianred'}}>{formik.errors.email}</div> : null}
+                    </div>
+                    <div style={{height: '50px'}}>
+                        <input type={"password"}
+                               placeholder={"Password"} {...formik.getFieldProps("password")}/>
+                        {formik.touched.password && formik.errors.password ?
+                            <div
+                                style={{color: 'indianred'}}>{formik.errors.password}</div> : null}
+                    </div>
+                    <div style={{height: '50px'}}>
+                        <input style={{width: '20px'}} type="checkbox" onChange={formik.handleChange}
+                               checked={formik.values.rememberMe}
+                               name="rememberMe"
+                        /> remember me
+                    </div>
+
+                    {captchaUrl && <img src={captchaUrl}/>}
+                    {captchaUrl && <input type={"text"}
+                                          placeholder={"Add symbols from image"}
+                                          {...formik.getFieldProps("captcha")}/>
+                    }
+                    <div>
+                        <button type="submit">Login</button>
+                    </div>
+                </form>
             </div>
-
-            <form onSubmit={formik.handleSubmit}>
-                <div style={{height: '50px'}}>
-                    <input placeholder={"Email"} {...formik.getFieldProps("email")}/>
-                    {formik.touched.email && formik.errors.email ?
-                        <div
-                            style={{color: 'indianred'}}>{formik.errors.email}</div> : null}
-                </div>
-                <div style={{height: '50px'}}>
-                    <input type={"password"}
-                           placeholder={"Password"} {...formik.getFieldProps("password")}/>
-                    {formik.touched.password && formik.errors.password ?
-                        <div
-                            style={{color: 'indianred'}}>{formik.errors.password}</div> : null}
-                </div>
-                <div style={{height: '50px'}}>
-                    <input type="checkbox" onChange={formik.handleChange}
-                           checked={formik.values.rememberMe}
-                           name="rememberMe"
-                    /> remember me
-                </div>
-
-                {captchaUrl && <img src={captchaUrl}/>}
-                {captchaUrl && <input type={"text"}
-                                      placeholder={"Add symbols from image"}
-                                      {...formik.getFieldProps("captcha")}/>
-                }
-                <div>
-                    <button type="submit">Login</button>
-                </div>
-            </form>
         </div>
+
     )
 }

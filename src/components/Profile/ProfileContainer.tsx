@@ -4,9 +4,11 @@ import {connect} from "react-redux";
 import {getStatus, getUserProfile, ProfileType, updateStatus, savePhoto} from "../../redux/profile-reducer";
 import {NavigateFunction, useLocation, useNavigate, useParams} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
-
 import {WithAuthRedirectComponent} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
+import HeaderContainer from "../Header/HeaderContainer";
+import {NavbarContainer} from "../Navbar/NavbarContainer";
+import style from "./Profile.module.css"
 
 export type ProfileContainerPropsType = {
     profile: ProfileType
@@ -57,7 +59,9 @@ export class ProfileContainer extends React.Component<ProfileContainerPropsType>
 
     render() {
 
-        return <div>
+        return <div className={style.appWrapper} >
+            <HeaderContainer/>
+            <NavbarContainer/>
             <Profile {...this.props}
                      isOwner={!this.props.router.params.userId}
                      profile={this.props.profile}

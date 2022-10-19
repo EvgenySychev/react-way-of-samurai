@@ -6,8 +6,8 @@ import {NavbarType} from "./NavbarContainer";
 
 const Navbar = (props:NavbarType) => {
     return (
-        <div>
-            <nav className={s.nav}>
+        <div className={s.nav}>
+            <nav >
                 <div className={s.item}>
                     <NavLink to="/profile">Profile</NavLink>
                 </div>
