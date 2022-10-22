@@ -37,7 +37,8 @@ const authReducer = (state = initialState, action: authReducerActionType): Initi
             return {
                 ...state,
                 ...action.data,
-                autorizedUserId: action.data.usersId
+                autorizedUserId: action.data.usersId,
+                captchaUrl: ''
             }
         case "auth/SET_IS_LOGGED_IN" :
             return {

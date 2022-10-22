@@ -68,26 +68,36 @@ export const Login = () => {
                     <div className={style.inputBlock}>
                         <input placeholder={"Email"} {...formik.getFieldProps("email")}/>
                         {formik.touched.email && formik.errors.email ?
-                            <div className={style.warning}>{formik.errors.email}</div> : null}
+                            <div
+                                className={style.warning}>{formik.errors.email}</div> : null}
                     </div>
                     <div className={style.inputBlock}>
                         <input type={"password"}
                                placeholder={"Password"} {...formik.getFieldProps("password")}/>
                         {formik.touched.password && formik.errors.password ?
-                            <div className={style.warning}>{formik.errors.password}</div> : null}
+                            <div
+                                className={style.warning}>{formik.errors.password}</div> : null}
                     </div>
-                    <div className={style.inputBlock}>
-                        <input style={{width: '20px'}} type="checkbox" onChange={formik.handleChange}
+                    <div>
+                        <input style={{width: '20px'}} type="checkbox"
+                               onChange={formik.handleChange}
                                checked={formik.values.rememberMe}
                                name="rememberMe"
                         /> remember me
                     </div>
 
-                    {captchaUrl && <img alt={'captcha'} src={captchaUrl}/>}
-                    {captchaUrl && <input type={"text"}
-                                          placeholder={"Add symbols from image"}
-                                          {...formik.getFieldProps("captcha")}/>
-                    }
+                    {captchaUrl &&
+                        <div className={style.captchaBlock}>
+                            <div>
+                                <img alt={'captcha'} src={captchaUrl}/>
+                            </div>
+                            <div>
+                                <input type={"text"}
+                                       placeholder={"Add symbols from image"}
+                                       {...formik.getFieldProps("captcha")}/>
+                            </div>
+                        </div>}
+
                     <div className={style.buttonBlock}>
                         <button type="submit">LOGIN</button>
                     </div>

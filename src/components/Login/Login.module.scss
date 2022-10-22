@@ -1,6 +1,6 @@
 .loginWrapper {
   margin: 100px auto;
-  height: 550px;
+  height: 650px;
   width: 400px;
   background-color: antiquewhite;
 }
@@ -45,6 +45,27 @@
         color: black;
       }
 
+    }
+  }
+
+  .captchaBlock {
+    img {
+      margin-top: 10px;
+      height: 80px;
+    }
+
+    input {
+      border: 1px solid #d3d5d8 !important;
+      line-height: 48px;
+      padding: 0 20px;
+      outline: none;
+      font-size: 15px;
+      color: #808080;
+      max-width: 100%;
+      font-weight: 400;
+      opacity: 1;
+      border-radius: 4px;
+      background-color: rgba(229, 231, 235, 1);
     }
   }
 }
