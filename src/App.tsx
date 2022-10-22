@@ -14,6 +14,8 @@ import {PageNotFound} from "./components/PageNotFound/PageNotFound";
 import {
     UnAuthorizedRedirect
 } from "./components/unAuthorizedRedirect/UnAuthorizedRedirect";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import {NavbarContainer} from "./components/Navbar/NavbarContainer";
 
 const News = React.lazy(() => import('./components/News/News'));
 const Music = React.lazy(() => import('./components/Music/Music'));
@@ -22,6 +24,7 @@ const Settings = React.lazy(() => import('./components/Settings/Settings'));
 const App = () => {
 
     const initialized = useSelector<AppStateType, boolean>(state => state.app.initialized)
+    const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth)
 
     const dispatch = useDispatch();
 
@@ -42,24 +45,27 @@ const App = () => {
     }
 
     return <div className='app-wrapper-content'>
-        <React.Suspense fallback={<div><Preloader/></div>}>
-            <Routes>
-                <Route path="/404" element={<PageNotFound/>}/>
-                <Route path='/login/*' element={<Login/>}/>
-                <Route element={<UnAuthorizedRedirect/>}>
-                    <Route path='/profile/:userId'
-                           element={<ProfileContainerWrapper/>}/>
-                    <Route path='/dialogs/*' element={<DialogsContainer/>}/>
-                    <Route path='/profile' element={<ProfileContainerWrapper/>}/>
-                    <Route path='/news/*' element={<News/>}/>
-                    <Route path='/music/*' element={<Music/>}/>
-                    <Route path='/settings/*' element={<Settings/>}/>
-                    <Route path='/users/*' element={<UsersContainerWrapper/>}/>
-                </Route>
-                <Route path='*' element={<ProfileContainerWrapper/>}/>
-            </Routes>
-        </React.Suspense>
-
+        <HeaderContainer/>
+        <div className='app-wrapper'>
+            {isAuth ? <NavbarContainer/> : ''}
+            <React.Suspense fallback={<div><Preloader/></div>}>
+                <Routes>
+                    <Route path="/404" element={<PageNotFound/>}/>
+                    <Route path='/login/*' element={<Login/>}/>
+                    <Route element={<UnAuthorizedRedirect/>}>
+                        <Route path='/profile/:userId'
+                               element={<ProfileContainerWrapper/>}/>
+                        <Route path='/dialogs/*' element={<DialogsContainer/>}/>
+                        <Route path='/profile' element={<ProfileContainerWrapper/>}/>
+                        <Route path='/news/*' element={<News/>}/>
+                        <Route path='/music/*' element={<Music/>}/>
+                        <Route path='/settings/*' element={<Settings/>}/>
+                        <Route path='/users/*' element={<UsersContainerWrapper/>}/>
+                    </Route>
+                    <Route path='*' element={<ProfileContainerWrapper/>}/>
+                </Routes>
+            </React.Suspense>
+        </div>
     </div>
 }
 

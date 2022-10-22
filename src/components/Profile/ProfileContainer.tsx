@@ -1,7 +1,13 @@
 import React from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getStatus, getUserProfile, ProfileType, updateStatus, savePhoto} from "../../redux/profile-reducer";
+import {
+    getStatus,
+    getUserProfile,
+    ProfileType,
+    updateStatus,
+    savePhoto
+} from "../../redux/profile-reducer";
 import {NavigateFunction, useLocation, useNavigate, useParams} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
 import {WithAuthRedirectComponent} from "../../hoc/WithAuthRedirect";
@@ -14,7 +20,7 @@ export type ProfileContainerPropsType = {
     profile: ProfileType
     status: string
     updateStatus: () => void
-    savePhoto: (e:string | Blob) => void
+    savePhoto: (e: string | Blob) => void
     router: {
         location: Location
         navigate: NavigateFunction
@@ -23,7 +29,7 @@ export type ProfileContainerPropsType = {
     getUserProfile: (data: ProfileType) => void
     getStatus: (data: ProfileType) => void
     isAuth: boolean
-    autorizedUserId:number
+    autorizedUserId: number
 }
 
 type mapStatePropsType = {
@@ -59,16 +65,13 @@ export class ProfileContainer extends React.Component<ProfileContainerPropsType>
 
     render() {
 
-        return <div className={style.appWrapper} >
-            <HeaderContainer/>
-            <NavbarContainer/>
-            <Profile {...this.props}
-                     isOwner={!this.props.router.params.userId}
-                     profile={this.props.profile}
-                     status={this.props.status}
-                     updateStatus={this.props.updateStatus}
-                     savePhoto={this.props.savePhoto}/>
-        </div>
+        return <Profile {...this.props}
+                        isOwner={!this.props.router.params.userId}
+                        profile={this.props.profile}
+                        status={this.props.status}
+                        updateStatus={this.props.updateStatus}
+                        savePhoto={this.props.savePhoto}/>
+
     }
 }
 
