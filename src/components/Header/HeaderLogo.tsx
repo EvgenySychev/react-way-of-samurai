@@ -6,10 +6,9 @@ export const HeaderLogo = () => {
 
     const navigate = useNavigate();
 
-    return  <div style={{cursor: 'pointer'}}>
-                <a onClick={() => {
-                    navigate('/')}}>
-                    <img alt={'logo'} src={logo}/>
-                </a>
-            </div>
+    return <div style={{cursor: 'pointer'}}>
+        <img onClick={() => {
+            navigate('/')
+        }} alt={'logo'} src={logo}/>
+    </div>
 }
