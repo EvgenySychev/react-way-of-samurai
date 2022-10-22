@@ -20,10 +20,10 @@ const Header = (props: any) => {
             </div>
             <div className={s.loginBlock}>
                 {props.isAuth
-                    ? (<div>{props.login}
+                    ? (<div style={{color: 'black'}}>{props.login}
                         <button onClick={logout}>LOGOUT</button>
                     </div>)
-                    : <button>LOGIN</button>
+                    : <button onClick={()=>alert('register page')}>REGISTER</button>
                 }
             </div>
         </div>
