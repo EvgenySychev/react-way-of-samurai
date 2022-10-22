@@ -2,6 +2,7 @@ import s from './Friends.module.css';
 import {SidebarType} from "../../../redux/sidebar-reducer";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
+import {FriendItem} from "./FriendItem";
 
 export const Friends = () => {
 
@@ -9,12 +10,10 @@ export const Friends = () => {
 
     return (
         <div className={s.friends}>
-            <div>Friends</div>
+            <h3>Friends</h3>
             <div>
-                {friendsInSidebar.map(f => <span>
-                <img src={f.img}/>
-                <div> {f.name} </div>
-            </span>)}
+                {friendsInSidebar.map(f => <FriendItem friendItem={f}/>)
+                  }
             </div>
         </div>
     )
