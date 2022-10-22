@@ -12,9 +12,6 @@ import {NavigateFunction, useLocation, useNavigate, useParams} from "react-route
 import {AppStateType} from "../../redux/redux-store";
 import {WithAuthRedirectComponent} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
-import HeaderContainer from "../Header/HeaderContainer";
-import {NavbarContainer} from "../Navbar/NavbarContainer";
-import style from "./Profile.module.css"
 
 export type ProfileContainerPropsType = {
     profile: ProfileType

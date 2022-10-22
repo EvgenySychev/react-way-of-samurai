@@ -1,32 +1,21 @@
-
 import s from './Friends.module.css';
 import {SidebarType} from "../../../redux/sidebar-reducer";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../redux/redux-store";
 
-type FriendPropsType = {
-    friendsInSidebar: Array<SidebarType>
-}
+export const Friends = () => {
 
-const Friends = (props:FriendPropsType) => {
-return(
-    <div className={s.friends}>
-        <div>Friends</div>
-        <div>
-            <span>
-                <img src={props.friendsInSidebar[0].img}/>
-                <div> {props.friendsInSidebar[0].name} </div>
-            </span>
-            <span>
-                <img src={props.friendsInSidebar[1].img}/>
-                <div> {props.friendsInSidebar[1].name} </div>
-            </span>
-            <span>
-                <img src={props.friendsInSidebar[2].img}/>
-                <div> {props.friendsInSidebar[2].name} </div>
-            </span>
+    let friendsInSidebar = useSelector<AppStateType, Array<SidebarType>>(state => state.sidebar.friendsInSidebar)
+
+    return (
+        <div className={s.friends}>
+            <div>Friends</div>
+            <div>
+                {friendsInSidebar.map(f => <span>
+                <img src={f.img}/>
+                <div> {f.name} </div>
+            </span>)}
+            </div>
         </div>
-    </div>
-)
-
+    )
 }
-
-export default Friends

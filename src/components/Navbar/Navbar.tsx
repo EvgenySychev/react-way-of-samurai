@@ -1,35 +1,31 @@
 import {NavLink} from 'react-router-dom';
-import s from './Navbar.module.css';
-import Friends from "./Friends/Friends";
-import {NavbarType} from "./NavbarContainer";
+import style from './Navbar.module.scss';
+import {Friends} from "./Friends/Friends";
 
-
-const Navbar = (props:NavbarType) => {
+export const Navbar = () => {
     return (
-        <div className={s.nav}>
+        <div className={style.nav}>
             <nav >
-                <div className={s.item}>
+                <div>
                     <NavLink to="/profile">Profile</NavLink>
                 </div>
-                <div className={`${s.item} ${s.activ}`}>
-                    <NavLink to="/dialogs" className={s.activeLink}>Messages</NavLink>
+                <div>
+                    <NavLink to="/dialogs" >Messages</NavLink>
                 </div>
-                <div className={`${s.item} ${s.activ}`}>
-                    <NavLink to="/users" className={s.activeLink}>Users</NavLink>
+                <div>
+                    <NavLink to="/users" >Users</NavLink>
                 </div>
-                <div className={s.item}>
-                    <NavLink to="/news" className={s.activeLink}> News</NavLink>
+                <div>
+                    <NavLink to="/news" > News</NavLink>
                 </div>
-                <div className={s.item}>
-                    <NavLink to="/music" className={s.activeLink}>Music</NavLink>
+                <div>
+                    <NavLink to="/music" >Music</NavLink>
                 </div>
-                <div className={s.item}>
-                    <NavLink to="/settings" className={s.activeLink}>Settings</NavLink>
+                <div>
+                    <NavLink to="/settings" >Settings</NavLink>
                 </div>
             </nav>
-            <Friends friendsInSidebar={props.friendsInSidebar}/>
+            <Friends />
         </div>
     )
 }
-
-export default Navbar;

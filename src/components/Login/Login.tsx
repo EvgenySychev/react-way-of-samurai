@@ -4,7 +4,7 @@ import {useFormik} from "formik";
 import {AppStateType} from "../../redux/redux-store";
 import {Navigate} from 'react-router-dom'
 import {loginTC} from "../../redux/auth-reducer";
-import style from "./Login.module.css"
+import style from "./Login.module.scss"
 
 type FormikErrorType = {
     email?: string
@@ -65,20 +65,18 @@ export const Login = () => {
                 </div>
 
                 <form className={style.loginForm} onSubmit={formik.handleSubmit}>
-                    <div style={{height: '50px'}}>
+                    <div className={style.inputBlock}>
                         <input placeholder={"Email"} {...formik.getFieldProps("email")}/>
                         {formik.touched.email && formik.errors.email ?
-                            <div
-                                style={{color: 'indianred'}}>{formik.errors.email}</div> : null}
+                            <div className={style.warning}>{formik.errors.email}</div> : null}
                     </div>
-                    <div style={{height: '50px'}}>
+                    <div className={style.inputBlock}>
                         <input type={"password"}
                                placeholder={"Password"} {...formik.getFieldProps("password")}/>
                         {formik.touched.password && formik.errors.password ?
-                            <div
-                                style={{color: 'indianred'}}>{formik.errors.password}</div> : null}
+                            <div className={style.warning}>{formik.errors.password}</div> : null}
                     </div>
-                    <div style={{height: '50px'}}>
+                    <div className={style.inputBlock}>
                         <input style={{width: '20px'}} type="checkbox" onChange={formik.handleChange}
                                checked={formik.values.rememberMe}
                                name="rememberMe"

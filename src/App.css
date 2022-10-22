@@ -7,8 +7,6 @@
   "n c";
 
   grid-template-columns: 2fr 10fr;
-}
 
-.app-wrapper-content {
-   background-color: cornflowerblue;
-  }
+  background-color: cornflowerblue;
+}
