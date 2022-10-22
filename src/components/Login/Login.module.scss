@@ -15,11 +15,38 @@
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
+
 }
 
 .loginForm {
   width: 100%;
   margin-left: 30%;
+
+  .buttonBlock {
+    margin-left: 90px;
+
+    button {
+      height: 35px;
+      background-color: rgba(236, 72, 153, 1);
+      padding: 0 1.5rem;
+      border-radius: 0.375rem;
+      transition: 0.3s;
+      outline: none !important;
+      color: rgba(255, 255, 255, 1);
+      text-align: center;
+      text-transform: capitalize;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-width: 0;
+      margin: 0.5rem;
+
+      &:hover {
+        color: black;
+      }
+
+    }
+  }
 }
 
 .loginForm div input {

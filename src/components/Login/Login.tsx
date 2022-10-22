@@ -83,13 +83,13 @@ export const Login = () => {
                         /> remember me
                     </div>
 
-                    {captchaUrl && <img src={captchaUrl}/>}
+                    {captchaUrl && <img alt={'captcha'} src={captchaUrl}/>}
                     {captchaUrl && <input type={"text"}
                                           placeholder={"Add symbols from image"}
                                           {...formik.getFieldProps("captcha")}/>
                     }
-                    <div>
-                        <button type="submit">Login</button>
+                    <div className={style.buttonBlock}>
+                        <button type="submit">LOGIN</button>
                     </div>
                 </form>
             </div>
