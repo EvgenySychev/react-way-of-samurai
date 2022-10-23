@@ -22,7 +22,7 @@ let initialState:SidebarType = {
         {
             id: 1,
             link: "/profile",
-            linkTitle: "Profile"
+            linkTitle: "My Profile"
         },
 {
             id: 2,

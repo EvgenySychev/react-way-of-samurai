@@ -14,12 +14,12 @@ type ProfileDataPropsType = {
 
 export const ProfileData = ({profile, isOwner, goToEditMode}: ProfileDataPropsType) => {
     return <div>
-        <div>
-            {profile.fullName}
-        </div>
-        <div>
+        {/*<div>*/}
+        {/*    {profile.fullName}*/}
+        {/*</div>*/}
+        {/*<div>
             <b>About me</b>: {profile.aboutMe}
-        </div>
+        </div>*/}
         <div>
             <b>Looking for a job</b>: {profile.lookingForAJob ? 'YES' : 'NO'}
         </div>

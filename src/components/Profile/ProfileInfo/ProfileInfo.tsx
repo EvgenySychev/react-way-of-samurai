@@ -1,24 +1,23 @@
 import s from './ProfileInfo.module.css';
 import {Preloader} from "../../../common/components/Preloader/Preloader";
-import {ProfileStatus} from "./ProfileStatus"
 import {ProfilePropsType} from "../Profile";
-import userPhoto from "../../../assets/images/user.png";
-import {ChangeEvent, useState} from "react";
+import {useState} from "react";
 import {ProfileDataForm} from "./ProfileDataForm";
 import {ProfileData} from "./ProfileData";
+import {ProfileHeader} from "./ProfileHeader";
 
-export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto}: ProfilePropsType) => {
+export const ProfileInfo = ({
+                                profile,
+                                status,
+                                updateStatus,
+                                isOwner,
+                                savePhoto
+                            }: ProfilePropsType) => {
 
     const [editMode, setEditMode] = useState(false)
 
     if (!profile) {
         return <Preloader/>
-    }
-
-    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            savePhoto(e.target.files[0])
-        }
     }
 
     const setEditModeCallBack = (editModeDataForm: boolean) => {
@@ -27,9 +26,11 @@ export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto}:
 
     return (
         <div className={s.descriptionBlock}>
-            <img src={profile.photos?.small || userPhoto}/>
-            {isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
-            <ProfileStatus status={status} updateStatus={updateStatus}/>
+            <ProfileHeader profile={profile}
+                           isOwner={isOwner}
+                           status={status}
+                           savePhoto={savePhoto}
+                           updateStatus={updateStatus}/>
             {editMode
                 ? <ProfileDataForm
                     profile={profile}

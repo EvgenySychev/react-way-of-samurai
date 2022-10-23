@@ -24,7 +24,7 @@ export const ProfileStatus = (props: ProfileStatusPropsType) => {
     }
 
     return (
-        <div>
+        <p>
             {!editMode &&
                 <div>
                     <span onDoubleClick={() => {
@@ -37,6 +37,6 @@ export const ProfileStatus = (props: ProfileStatusPropsType) => {
                     <input onChange={onStatusChange} autoFocus={true} onBlur={updateStatus} value={localStatus}/>
                 </div>
             }
-        </div>
+        </p>
     )
 }
