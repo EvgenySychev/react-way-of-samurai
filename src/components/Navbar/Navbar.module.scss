@@ -1,6 +1,8 @@
+@import "./src/common/styles/variables";
+
 
 .navbar {
-  background-color: #fff;
+  background-color: $backGroundColor;
   padding: 30px;
   height: 100vh;
   width: 230px;
@@ -9,7 +11,7 @@
   margin-top: 55px;
 
   a {
-    color: #707070;
+    color: $textColor;
     padding: 8px 15px;
     cursor: pointer;
     position: relative;
@@ -18,7 +20,7 @@
     text-decoration: none;
     /*display: flex;*/
     &:hover {
-      color: #be185d;;
+      color: $primaryColor;;
     }
   }
 

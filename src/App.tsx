@@ -8,7 +8,7 @@ import {ProfileContainerWrapper} from "./components/Profile/ProfileContainer";
 import {Login} from "./components/Login/Login";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "./redux/redux-store";
-import {Preloader} from "./components/common/Preloader/Preloader";
+import {Preloader} from "./common/components/Preloader/Preloader";
 import {getAuthUserData} from "./redux/auth-reducer";
 import {PageNotFound} from "./components/PageNotFound/PageNotFound";
 import {

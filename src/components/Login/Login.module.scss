@@ -25,27 +25,8 @@
   .buttonBlock {
     margin-left: 90px;
 
-    button {
-      height: 35px;
-      background-color: rgba(236, 72, 153, 1);
-      padding: 0 1.5rem;
-      border-radius: 0.375rem;
-      transition: 0.3s;
-      outline: none !important;
-      color: rgba(255, 255, 255, 1);
-      text-align: center;
-      text-transform: capitalize;
-      cursor: pointer;
-      font-size: 0.875rem;
-      font-weight: 600;
-      border-width: 0;
-      margin: 0.5rem;
+    @import "./src/common/styles/button";
 
-      &:hover {
-        color: black;
-      }
-
-    }
   }
 
   .captchaBlock {
@@ -54,19 +35,7 @@
       height: 80px;
     }
 
-    input {
-      border: 1px solid #d3d5d8 !important;
-      line-height: 48px;
-      padding: 0 20px;
-      outline: none;
-      font-size: 15px;
-      color: #808080;
-      max-width: 100%;
-      font-weight: 400;
-      opacity: 1;
-      border-radius: 4px;
-      background-color: rgba(229, 231, 235, 1);
-    }
+    @import "src/common/styles/input";
   }
 }
 
@@ -77,19 +46,7 @@
 .inputBlock {
   height: 80px;
 
-  input {
-    border: 1px solid #d3d5d8 !important;
-    line-height: 48px;
-    padding: 0 20px;
-    outline: none;
-    font-size: 15px;
-    color: #808080;
-    max-width: 100%;
-    font-weight: 400;
-    opacity: 1;
-    border-radius: 4px;
-    background-color: rgba(229, 231, 235, 1);
-  }
+  @import "src/common/styles/input";
 }
 
 .warning {

@@ -7,7 +7,7 @@ import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import React from "react";
 import {Users} from "./Users";
-import {Preloader} from "../common/Preloader/Preloader";
+import {Preloader} from "../../common/components/Preloader/Preloader";
 import {compose} from "redux";
 
 export type mapStatePropsType = {
