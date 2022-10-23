@@ -1,15 +1,56 @@
 
-export type SidebarType = {
+export type FriendsInSidebarType = {
     id: number
     name: string
     img: string
 }
-export type FriendsInSidebarType = {
-    friendsInSidebar: Array<SidebarType>
+export type SidebarType = {
+    sidebarItems: Array<SidebarItem>
+    friendsInSidebar: Array<FriendsInSidebarType>
 }
+
+export type SidebarItem = {
+    id:number
+    link: string
+    linkTitle: string
+}
+
 export type ActionSidebarReducerTypes = {}
 
-let initialState:FriendsInSidebarType = {
+let initialState:SidebarType = {
+    sidebarItems: [
+        {
+            id: 1,
+            link: "/profile",
+            linkTitle: "Profile"
+        },
+{
+            id: 2,
+            link: "/dialogs",
+            linkTitle: "Messages"
+        },
+{
+            id: 3,
+            link: "/users",
+            linkTitle: "Users"
+        },
+{
+            id: 4,
+            link: "/news",
+            linkTitle: "News"
+        },
+{
+            id: 5,
+            link: "/music",
+            linkTitle: "Music"
+        },
+{
+            id: 6,
+            link: "/settings",
+            linkTitle: "Settings"
+        },
+
+    ],
     friendsInSidebar: [
         {
             id: 1,
@@ -29,7 +70,7 @@ let initialState:FriendsInSidebarType = {
     ]
 }
 
-const sidebarReducer = (state = initialState, action:ActionSidebarReducerTypes): FriendsInSidebarType => {
+const sidebarReducer = (state = initialState, action:ActionSidebarReducerTypes): SidebarType => {
 
     return {...state}
 }

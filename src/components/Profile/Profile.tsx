@@ -1,6 +1,6 @@
 
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-
+import style from "./Profile.module.css"
 import {MyPostContainer} from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../redux/profile-reducer";
 
@@ -15,7 +15,7 @@ export type ProfilePropsType = {
 export const Profile = ({profile, status,updateStatus, isOwner, savePhoto}: ProfilePropsType) => {
 
     return (
-    <div>
+    <div className={style.profileContainer}>
         <ProfileInfo
             isOwner={isOwner}
             profile={profile}

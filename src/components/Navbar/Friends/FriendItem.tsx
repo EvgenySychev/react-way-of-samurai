@@ -1,7 +1,7 @@
-import {SidebarType} from "../../../redux/sidebar-reducer";
+import {FriendsInSidebarType} from "../../../redux/sidebar-reducer";
 
 type FriendItemPropsType = {
-    friendItem: SidebarType
+    friendItem: FriendsInSidebarType
 }
 
 export const FriendItem = ({friendItem}: FriendItemPropsType) => {

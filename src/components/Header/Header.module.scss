@@ -5,6 +5,9 @@
   padding-top: 0.2rem;
   padding-bottom: 0.2rem;
   border-bottom: 1px solid #EC4899FF;
+  position: fixed;
+  z-index: 100;
+  width: 100%;
 }
 
 .header img {
