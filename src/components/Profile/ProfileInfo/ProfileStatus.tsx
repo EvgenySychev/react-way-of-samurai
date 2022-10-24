@@ -2,6 +2,7 @@ import React, {ChangeEvent, useEffect, useState} from 'react'
 
 type ProfileStatusPropsType = {
     status: string
+    isOwner: boolean
     updateStatus: (status: string) => void
 }
 
@@ -28,8 +29,9 @@ export const ProfileStatus = (props: ProfileStatusPropsType) => {
             {!editMode &&
                 <div>
                     <span onDoubleClick={() => {
-                        setEditMode(true)
-                    }}>{props.status}</span>
+                        if (props.isOwner) {setEditMode(true)}
+                    }}
+                    >{props.status}</span>
                 </div>
             }
             {editMode &&

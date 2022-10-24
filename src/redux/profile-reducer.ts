@@ -4,8 +4,9 @@ import {profileAPI, upDateProfileType, usersAPI} from "../api/api";
 export type ProfilePageType = {
     post: Array<postDataType>
     newPostText: string
-    profile: ProfileType
     status: string
+    profile: ProfileType
+    ownerProfile: ProfileType
 }
 
 export type ContactsProfileType = {
@@ -37,14 +38,16 @@ export type postDataType = {
     likesCount: number
 }
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
-export type setUserProfile = ReturnType<typeof setUserProfile>
+export type setUserProfileType = ReturnType<typeof setUserProfile>
+export type setUserOwnerProfileType = ReturnType<typeof setUserOwnerProfile>
 export type setStatusActionType = ReturnType<typeof setStatus>
 export type deletePostActionType = ReturnType<typeof deletePost>
 export type savePhotoSuccessActionType = ReturnType<typeof savePhotoSuccess>
 export type upDateProfileSuccessActionType = ReturnType<typeof upDateProfileSuccess>
 
 export type ActionProfileReducersTypes = AddPostActionType
-    | setUserProfile
+    | setUserProfileType
+    | setUserOwnerProfileType
     | setStatusActionType
     | deletePostActionType
     | savePhotoSuccessActionType
@@ -58,6 +61,27 @@ let initialState: ProfilePageType = {
     newPostText: 'it-kamasutra',
     status: 'add yours status',
     profile: {
+        userId: 0,
+        lookingForAJob: false,
+        lookingForAJobDescription: '',
+        aboutMe: '',
+        fullName: '',
+        contacts: {
+            github: '',
+            vk: '',
+            facebook: '',
+            instagram: '',
+            twitter: '',
+            website: '',
+            youtube: '',
+            mainLink: ''
+        },
+        photos: {
+            small: '',
+            large: ''
+        }
+    },
+    ownerProfile: {
         userId: 0,
         lookingForAJob: false,
         lookingForAJobDescription: '',
@@ -98,9 +122,16 @@ const profileReducer = (state = initialState, action: ActionProfileReducersTypes
         case 'profile/SET_USER_PROFILE': {
             return {
                 ...state,
-                profile: action.profile
+                profile: action.profile,
             }
         }
+        case 'profile/SET_USER_OWNER_PROFILE': {
+            return {
+                ...state,
+                ownerProfile: action.profile,
+            }
+        }
+
         case "profile/SET-STATUS": {
             return {...state, status: action.status}
         }
@@ -140,6 +171,10 @@ export const setUserProfile = (profile: ProfileType) => {
     return {type: 'profile/SET_USER_PROFILE', profile} as const
 }
 
+export const setUserOwnerProfile = (profile: ProfileType) => {
+    return {type: 'profile/SET_USER_OWNER_PROFILE', profile} as const
+}
+
 export const setStatus = (status: string) => {
     return {type: 'profile/SET-STATUS', status: status} as const
 }
@@ -153,12 +188,20 @@ export const savePhotoSuccess = (photos: any) => {
 }
 
 export const upDateProfileSuccess = (data: upDateProfileType) => {
-    return {type: 'profile/UPDATE-PROFILE-SUCCESS', profile: {...data, contacts: data.contacts}} as const
+    return {
+        type: 'profile/UPDATE-PROFILE-SUCCESS',
+        profile: {...data, contacts: data.contacts}
+    } as const
 }
 
-export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
+export const getUserProfile = (userId: number) => async (dispatch: Dispatch, getState: any) => {
+    const autorizedUserId = getState().auth.autorizedUserId
     const response = await usersAPI.getProfile(userId)
-    dispatch(setUserProfile(response.data))
+    dispatch(setUserProfile(response.data));
+    if (response.data.userId === autorizedUserId) {
+        dispatch(setUserOwnerProfile(response.data))
+    }
+
 }
 
 export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
@@ -167,7 +210,7 @@ export const getStatus = (userId: number) => async (dispatch: Dispatch) => {
 }
 
 export const updateStatus = (status: string) => async (dispatch: Dispatch) => {
-    try{
+    try {
         const response = await profileAPI.updateStatus(status)
         if (response.data.resultCode === 0) {
             dispatch(setStatus(status))
@@ -183,13 +226,12 @@ export const savePhoto = (file: string | Blob) => async (dispatch: Dispatch) => 
         if (response.data.resultCode === 0) {
             dispatch(savePhotoSuccess(response.data.data.photos))
         }
-    }
-    catch (error) {
+    } catch (error) {
         alert(error)
     }
 }
 
-export const upDateProfile = (data: upDateProfileType) => async (dispatch: Dispatch, getState:any) => {
+export const upDateProfile = (data: upDateProfileType) => async (dispatch: Dispatch, getState: any) => {
     const userId = getState().auth.autorizedUserId
     const response = await profileAPI.upDateProfile(data)
     if (response.data.resultCode === 0) {

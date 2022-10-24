@@ -1,5 +1,9 @@
 .profileHeaderBlock {
   display: flex;
+  height: 320px;
+  .profileImgBlock{
+    width: 250px;
+  }
 
   h2 {
     color: #333;

@@ -9,17 +9,17 @@ import {SidebarItem} from "../../redux/sidebar-reducer";
 
 export const Navbar = () => {
 
-    let profile = useSelector<AppStateType, ProfileType>(state => state.profilePage.profile)
+    let ownerProfile = useSelector<AppStateType, ProfileType>(state => state.profilePage.ownerProfile)
     let sidebarItems = useSelector<AppStateType,Array<SidebarItem>>(state => state.sidebar.sidebarItems)
 
     return (
         <div className={style.navbar}>
             <div className={style.userInfoBlock}>
                 <div className={style.userPhoto}>
-                    <img alt={profile.fullName} src={profile.photos?.small || userPhoto}/>
+                    <img alt={ownerProfile.fullName} src={ownerProfile.photos?.small || userPhoto}/>
                 </div>
-                <div>{profile.fullName}</div>
-                <div>{profile.userId}</div>
+                <div>{ownerProfile.fullName}</div>
+                <div>{ownerProfile.userId}</div>
             </div>
             <hr/>
             <ul>

@@ -13,7 +13,7 @@ export const ProfileHeader = ({profile, isOwner, status, savePhoto, updateStatus
     }
 
     return <div className={style.profileHeaderBlock}>
-        <div>
+        <div className={style.profileImgBlock}>
             <div>
                 <img alt={profile.fullName} src={profile.photos?.small || userPhoto}/>
             </div>
@@ -25,7 +25,7 @@ export const ProfileHeader = ({profile, isOwner, status, savePhoto, updateStatus
             <h2>
                 {profile.fullName}
             </h2>
-            <ProfileStatus status={status} updateStatus={updateStatus}/>
+            <ProfileStatus isOwner={isOwner} status={status} updateStatus={updateStatus}/>
             <p>
                 {profile.aboutMe}
             </p>
