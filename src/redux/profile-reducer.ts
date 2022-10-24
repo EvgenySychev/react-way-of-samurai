@@ -154,6 +154,9 @@ const profileReducer = (state = initialState, action: ActionProfileReducersTypes
                     lookingForAJobDescription: action.profile.lookingForAJobDescription,
                     aboutMe: action.profile.aboutMe,
                     fullName: action.profile.fullName
+                },
+                ownerProfile: {...state.ownerProfile,
+                    fullName: action.profile.fullName
                 }
             }
         }
