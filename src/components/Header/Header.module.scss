@@ -24,6 +24,18 @@
 
 .loginBlock {
   color: $backGroundColor;
+  .loginInfo{
+    display: flex;
+    p{
+      color: $textColor;
+    }
+    img {
+      height: 35px;
+      width: 35px;
+    }
+  }
+
+
 
   @import "./src/common/styles/button";
 }
