@@ -26,12 +26,14 @@
   color: $backGroundColor;
   .loginInfo{
     display: flex;
+    align-items: center;
     p{
       color: $textColor;
     }
     img {
       height: 35px;
       width: 35px;
+      margin-top: 0;
     }
   }
 
