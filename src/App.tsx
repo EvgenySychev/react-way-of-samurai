@@ -11,14 +11,12 @@ import { Navbar } from './components/Navbar/Navbar';
 import { getAuthUserData } from './redux/auth-reducer';
 import { AppStateType } from './redux/redux-store';
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const App = () => {
   const initialized = useSelector<AppStateType, boolean>(state => state.app.initialized);
   const isAuth = useSelector<AppStateType, boolean>(state => state.auth.isAuth);
 
   const dispatch = useDispatch();
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const catchAllUnhandleErrors = () => {
     return alert('Some error occured');
   };

@@ -1,11 +1,11 @@
-import preloader from "../../../assets/images/preloader.gif";
-import React from "react";
+import React from 'react';
 
+import preloader from '../../../assets/images/preloader.gif';
 
 export const Preloader = () => {
-    return (
-        <div>
-            <img src={preloader}/>
-        </div>
-    )
-}
+  return (
+    <div>
+      <img alt={preloader} src={preloader} />
+    </div>
+  );
+};
