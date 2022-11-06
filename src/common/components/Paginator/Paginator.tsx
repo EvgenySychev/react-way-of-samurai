@@ -5,7 +5,6 @@ import style from './Paginator.module.css';
 type PaginatorPropsType = {
   totalItemsCount: number;
   pageSize: number;
-  currentPages: number;
   onPageChanged: (pageNumber: number) => void;
   portionSize?: number;
 };
@@ -13,7 +12,6 @@ type PaginatorPropsType = {
 export const Paginator = ({
   totalItemsCount,
   pageSize,
-  currentPages,
   onPageChanged,
   portionSize = 10,
 }: PaginatorPropsType) => {
@@ -31,10 +29,11 @@ export const Paginator = ({
 
   return (
     <div className={style.paginator}>
-      <div className={style.btnblock}>
+      <div className={style.btnBlock}>
         {portionNumber > 1 && (
           <button
-            className={style.prevbtn}
+            type="button"
+            className={style.prevBtn}
             onClick={() => {
               setPortionNumber(portionNumber - 1);
             }}
@@ -50,6 +49,7 @@ export const Paginator = ({
           .map(p => {
             return (
               <span
+                key={p}
                 className={style.pageNumber} // currentPages приходит undefined
                 // здесь надо пофиксить, спан жирным не рисует
                 onClick={e => onPageChanged(p)}
@@ -59,10 +59,11 @@ export const Paginator = ({
             );
           })}
       </div>
-      <div className={style.btnblock}>
+      <div className={style.btnBlock}>
         {portionCount > portionNumber && (
           <button
-            className={style.nextbtn}
+            type="button"
+            className={style.nextBtn}
             onClick={() => {
               setPortionNumber(portionNumber + 1);
             }}

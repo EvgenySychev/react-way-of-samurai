@@ -4,16 +4,16 @@
     justify-content: center;
 }
 
-.btnblock {
+.btnBlock {
     width: 70px;
     height:25px ;
 }
-.prevbtn {
+.prevBtn {
     width: 55px;
     height:31px ;
 }
 
-.nextbtn {
+.nextBtn {
     width: 55px;
     height:31px ;
     margin-left: 20px;

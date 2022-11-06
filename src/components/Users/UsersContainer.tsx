@@ -21,7 +21,6 @@ export type mapStatePropsType = {
   usersPage: InitialStateType;
   pageSize: number;
   totalUsersCount: number;
-  currentPage: number;
   isFetching: boolean;
   followingInProgress: Array<number>;
 };
@@ -55,9 +54,7 @@ export class UsersContainer extends React.Component<any, any> {
           <Users
             totalUsersCount={this.props.totalUsersCount}
             pageSize={this.props.pageSize}
-            currentPages={this.props.currentPages}
             onPageChanged={this.onPageChanged}
-            users={this.props.users}
             follow={this.props.follow}
             unfollow={this.props.unfollow}
             usersPage={this.props.usersPage}
@@ -74,7 +71,6 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     usersPage: state.usersPage,
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
     followingInProgress: state.usersPage.followingInProgress,
   };
