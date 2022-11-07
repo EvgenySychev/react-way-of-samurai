@@ -2,7 +2,9 @@ import React from 'react';
 
 import { NavLink } from 'react-router-dom';
 
-import s from '../Dialogs.module.css';
+import userPhoto from '../../../assets/images/user.png';
+
+import style from './DialogItem.module.scss';
 
 type DialogItemPropsType = {
   name: string;
@@ -13,8 +15,18 @@ const DialogItem = ({ id, name }: DialogItemPropsType) => {
   const path = `/dialogs/${id}`;
 
   return (
-    <div className={`${s.dialog} ${s.active}`}>
-      <NavLink to={path}> {name} </NavLink>
+    <div className={style.dialogBlock}>
+      <div>
+        <NavLink to={path} className={style.dialogNav}>
+          <div className={style.userImg}>
+            <img src={userPhoto} alt="user" />
+          </div>
+          <div className={style.descriptionBlock}>
+            <h4>{name}</h4>
+            <p> Status status statussssssssssss status status status status </p>
+          </div>
+        </NavLink>
+      </div>
     </div>
   );
 };

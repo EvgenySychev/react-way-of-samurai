@@ -1,0 +1,49 @@
+@import "../../../common/styles/variables";
+
+.dialogBlock {
+  width: 100%;
+
+  .dialogNav {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0;
+    height: 50px;
+    text-decoration: none;
+
+    .userImg {
+      img {
+        height: 50px;
+        width: 50px;
+      }
+    }
+
+    .descriptionBlock {
+      width: 100%;
+      position: relative;
+      min-width: 0;
+      padding-left: 10px;
+
+      h4 {
+        font-weight: 600;
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        text-transform: none;
+        color: black;
+      }
+
+      p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 15px;
+        line-height: 27px;
+        margin: 0;
+        color: $textColor;
+      }
+    }
+  }
+
+
+}
+
+
